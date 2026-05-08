@@ -288,6 +288,11 @@ export default function JigsawGame({ worldId, onComplete, onBack, brandOverride 
               />
             ))}
           </div>
+          {roundDone && !gravyFail && resultMsg && (
+            <div className={`image-result-msg ${correct ? "result-correct" : "result-skipped"}`}>
+              {resultMsg}
+            </div>
+          )}
         </div>
       </div>
 

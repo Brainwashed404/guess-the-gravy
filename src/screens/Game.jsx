@@ -242,6 +242,11 @@ export default function Game({ worldId, existingProgress, onComplete, onBack, br
           className={`sticker-img ${transitioning ? "spin-out" : "spin-in"}`}
           draggable={false}
         />
+        {roundDone && !gravyFail && resultMsg && (
+          <div className={`image-result-msg ${skipped ? "result-skipped" : "result-correct"}`}>
+            {resultMsg}
+          </div>
+        )}
       </div>
 
       <div className={`boxes-wrap ${justWrong ? "shake" : ""}`}>
