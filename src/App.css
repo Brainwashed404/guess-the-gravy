@@ -985,22 +985,30 @@
   /* Action areas shrink to just the result message */
   .action-area {
     height: auto;
-    min-height: 36px;
-    padding: 2px 20px max(6px, env(safe-area-inset-bottom));
+    min-height: 32px;
+    padding: 0 20px max(4px, env(safe-area-inset-bottom));
   }
   .jigsaw-action {
     height: auto;
-    min-height: 36px;
-    padding: 2px 20px max(6px, env(safe-area-inset-bottom));
+    min-height: 32px;
+    padding: 0 20px max(4px, env(safe-area-inset-bottom));
     justify-content: center;
   }
 
   /* Let the image grow to fill freed-up space */
-  .image-wrap { padding: 4px 16px 4px; }
-  .jigsaw-img-wrap { padding: 4px 16px 4px; }
+  .image-wrap { padding: 4px 16px 2px; }
+  .jigsaw-img-wrap { padding: 4px 16px 2px; }
 
-  /* Slightly tighter letter box area */
-  .boxes-wrap { height: 110px; }
+  /* Let letter boxes size naturally — don't clip the wrong-count */
+  .boxes-wrap {
+    height: auto;
+    flex-shrink: 0;
+    padding: 0 14px 2px;
+  }
+
+  /* Compact result message on mobile */
+  .action-msg { font-size: 18px; }
+  .wrong-count { font-size: 15px; margin: 1px 0 0; }
 }
 
 /* ── Desktop (≥769 px) ── */
@@ -1028,8 +1036,8 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 6px;
-  padding: 6px 4px max(10px, env(safe-area-inset-bottom));
+  gap: 5px;
+  padding: 5px 4px max(8px, env(safe-area-inset-bottom));
   background: #d3d6da;
   width: 100%;
   box-sizing: border-box;
@@ -1037,7 +1045,7 @@
 
 .kb-row {
   display: flex;
-  gap: 5px;
+  gap: 4px;
   justify-content: center;
 }
 
@@ -1047,7 +1055,7 @@
   font-weight: 400;
   letter-spacing: 0.04em;
   width: clamp(28px, 8.8vw, 42px);
-  height: clamp(42px, 11vw, 56px);
+  height: clamp(36px, 9.5vw, 48px);
   border-radius: 6px;
   border: none;
   background: #fff;
