@@ -1,0 +1,138 @@
+// When the filename differs from the correct display answer
+export const ALIASES = {
+  "NASA (2)":          "NASA",
+  "DUCATI CLASSIC":    "DUCATI",
+  "DORITOS CLASSIC":   "DORITOS",
+};
+
+export const CATEGORIES = [
+  {
+    id: "fastfood",
+    name: "FAST FOOD",
+    emoji: "🍔",
+    color: "#e85d04",
+    brands: [
+      "ARBY'S", "BURGER KING", "COSTCO", "CRACKER BARREL", "DENNY'S",
+      "DUNKIN DONUTS", "IHOP", "IN-N-OUT BURGER", "KFC", "KRISPY KREME",
+      "MCDONALD'S", "PIZZA HUT", "RAISING CANE'S", "SEVEN ELEVEN", "SPAR",
+      "STARBUCKS", "SUBWAY", "TACO BELL", "TESCO", "WAFFLE HOUSE",
+      "WENDY'S", "WHOLE FOODS",
+    ],
+  },
+  {
+    id: "snacks",
+    name: "SNACKS",
+    emoji: "🍬",
+    color: "#9b2d8b",
+    brands: [
+      "AERO", "BEN & JERRY'S", "BOUNTY", "BUBBALICIOUS", "CAP'N'CRUNCH",
+      "CHEETOS", "CHIPS AHOY", "CHIQUITA", "CHUPA CHUPS", "CRUNCH",
+      "DAIM", "DEL MONTE", "DOLE", "DORITOS CLASSIC", "FAIRY",
+      "FLIPZ", "FRUIT LOOPS", "HARIBO", "HEINZ", "HELLO PANDA",
+      "HUBBA BUBBA", "JELLY BELLY", "KELLOGG'S", "KIT KAT", "LAY'S",
+      "LIFE", "LION BAR", "LUCKY CHARMS", "MARS", "MILKA", "MILKY WAY",
+      "NERDS", "NUTELLA", "OLD EL PASO", "OREO'S", "PEZ", "PRINGLES",
+      "QUAKER", "REESE'S", "SKITTLES", "SNICKERS", "TIC TAC", "TIDE",
+      "SPACE INVADERS", "TONY'S CHOCOLONELY", "TROPICAL SUN", "TWIX", "WERTHER'S ORIGINAL",
+      "WRIGLEY'S DOUBLEMINT",
+    ],
+  },
+  {
+    id: "drinks",
+    name: "DRINKS",
+    emoji: "🥤",
+    color: "#0096c7",
+    brands: [
+      // Soft drinks & energy
+      "CANADA DRY", "COCA-COLA", "DESPERADOS", "EVIAN", "GATORADE",
+      "GUARANA ANTARCTICA", "ICEE", "MOUNTAIN DEW", "NESQUIK",
+      "PEPSI", "PERRIER", "RED BULL", "SCHWEPPES", "SNAPPLE", "SPRITE",
+      // Booze
+      "ABSOLUT", "BELL'S", "CARLSBERG", "CORONA EXTRA", "HAVANA CLUB",
+      "JIM BEAN", "JOSE CUERVO", "KRONENBOURG", "LEFFE", "MALIBU",
+      "MARLBORO", "STELLA ARTOIS",
+    ],
+  },
+  {
+    id: "music",
+    name: "MUSIC",
+    emoji: "🎵",
+    color: "#e63946",
+    brands: [
+      "AC_DC", "AKAI PROFESSIONAL", "ATLANTIC RECORDS", "BEATS BY DRE",
+      "BEHRINGER", "BLACK SABBATH", "BRAT", "DANZIG", "ERNIE BALL",
+      "FENDER", "GIBSON", "GUNS N ROSES", "METALLICA", "MTV",
+      "NIRVANA", "NWA", "ODD FUTURE", "PUBLIC ENEMY", "RUN DMC",
+      "SOUNDCLOUD", "SPOTIFY", "SUB POP", "TOMMY BOY", "VIRGIN RECORDS",
+    ],
+  },
+  {
+    id: "filmtv",
+    name: "FILM & TV",
+    emoji: "📺",
+    color: "#457b9d",
+    brands: [
+      "ADVENTURE TIME", "ALF", "ART ATTACK", "BLOCKBUSTER",
+      "BREAKING BAD", "CAPTAIN PLANET", "CARTOON NETWORK", "CHEERS",
+      "COMEDY CENTRAL", "COUNT DUCKULA", "DANGER MOUSE", "DR.SEUSS",
+      "FAMILY GUY", "FRIENDS", "JURASSIC PARK", "MARVEL", "MASK",
+      "MASTERS OF THE UNIVERSE", "NETFLIX", "NICKELODEAN", "PBS",
+      "RICK AND MORTY", "ROBOCOP", "RUGRATS", "SAVED BY THE BELL",
+      "SEINFELD", "SESAME STREET", "STRANGER THINGS", "TED",
+      "TEENAGE MUTANT NINJA TURTLES", "THE FRESH PRINCE OF BEL-AIR",
+      "THE GOOD LIFE", "THE MASK", "THE MUNCH BUNCH", "THE REAL GHOSTBUSTERS",
+      "THE SIMPSONS", "THE SMURFS", "TRANSFORMERS", "TRON", "TV-AM",
+      "WARNER BROS",
+    ],
+  },
+  {
+    id: "fashion",
+    name: "FASHION",
+    emoji: "👟",
+    color: "#2a9d8f",
+    brands: [
+      "ADIDAS", "ASICS", "BERGHAUS", "CARHARTT", "CHAMPION", "DICKIES",
+      "ELLESSE", "FILA", "FJALLRAVEN", "FRUIT OF THE LOOM", "KAPPA",
+      "LEVI'S", "NEW BALANCE", "NIKE", "PALACE", "PATAGONIA", "PRADA",
+      "PUMA", "STONE ISLAND", "TAG HEUR", "THE NORTH FACE", "WILSON", "YONEX",
+    ],
+  },
+  {
+    id: "gaming",
+    name: "GAMING & TOYS",
+    emoji: "🎮",
+    color: "#7b2fff",
+    brands: [
+      "ATARI", "BARBIE", "CABBAGE PATCH KIDS", "DUPLO", "FISCHER-PRICE",
+      "FORTNITE", "GARBAGE PAIL KIDS", "HOT WHEELS", "KONAMI", "LEGO",
+      "MATCHBOX", "MATTEL", "MICRO MACHINES", "MONOPOLY", "NERF",
+      "NINTENDO", "PLAYSTATION", "SEGA", "SUPER MARIO", "SUPER NINTENDO",
+    ],
+  },
+  {
+    id: "tech",
+    name: "TECH & MEDIA",
+    emoji: "📱",
+    color: "#0077b6",
+    brands: [
+      "ADVIL", "APPLE", "BLAUPUNKT", "BUPA", "CANON", "CNN", "DHL",
+      "EBAY", "ESPN", "FACEBOOK", "GOOGLE", "IKEA", "KODAK", "LEICA",
+      "LONDON UNDERGROUND", "NASA", "NASA (2)", "NHS", "ORANGE",
+      "POLAROID", "SINCLAIR", "SPOTIFY", "TEMU", "TIKTOK", "TINDER",
+      "TWITCH", "TWITTER", "UPS", "YAHOO!", "YUBO",
+    ],
+  },
+  {
+    id: "street",
+    name: "STREET & CULTURE",
+    emoji: "🛹",
+    color: "#2d6a4f",
+    brands: [
+      "ALIEN WORKSHOP", "ATLANTA HAWKS", "BIC", "BMW", "CASTROL", "PALACE",
+      "CHICAGO BULLS", "D.A.R.E", "DICKHOUSE", "DUCATI", "DUCATI CLASSIC",
+      "ESSO", "FERRARI", "FORD", "GIRL", "GOODYEAR", "GULF", "HILTI",
+      "LAND ROVER", "LUCKY STRIKE", "MOBIL", "OBEY", "PLAYBOY",
+      "SANTA CRUZ", "SUPREME", "THRASHER", "TOY MACHINE",
+    ],
+  },
+];
