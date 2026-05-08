@@ -1017,7 +1017,7 @@
   }
 
   /* Hide touch keyboard — desktop uses physical keys */
-  .keyboard { display: none; }
+  .keyboard { display: none !important; }
 }
 
 /* ═══════════════════════════════════════
