@@ -235,16 +235,16 @@
 /* ── Result message overlaid on the image (mobile) ── */
 .image-result-msg {
   position: absolute;
-  bottom: 14px;
+  top: 68%;
   left: 50%;
-  transform: translateX(-50%);
+  transform: translate(-50%, -50%);
   font-family: 'Bangers', system-ui, sans-serif;
-  font-size: clamp(17px, 4.8vw, 24px);
+  font-size: clamp(18px, 5vw, 26px);
   letter-spacing: 0.06em;
-  padding: 8px 22px;
-  border-radius: 10px;
+  padding: 10px 26px;
+  border-radius: 12px;
   white-space: nowrap;
-  max-width: calc(100% - 24px);
+  max-width: calc(100% - 32px);
   text-align: center;
   pointer-events: none;
   z-index: 3;
@@ -253,8 +253,8 @@
 .image-result-msg.result-correct { background: rgba(34,197,94,0.92); color: #fff; }
 .image-result-msg.result-skipped { background: rgba(20,20,20,0.78); color: #fff; }
 @keyframes result-pop {
-  0%   { transform: translateX(-50%) scale(0.6); opacity: 0; }
-  100% { transform: translateX(-50%) scale(1);   opacity: 1; }
+  0%   { transform: translate(-50%, -50%) scale(0.6); opacity: 0; }
+  100% { transform: translate(-50%, -50%) scale(1);   opacity: 1; }
 }
 
 /* ── Spin animations ── */
@@ -1024,16 +1024,23 @@
     z-index: 5;
   }
 
-  /* Push screen content clear of the fixed keyboard
-     (128px keys+gaps + safe-area for iPhone home indicator) */
+  /* Push screen content clear of the fixed keyboard.
+     Keyboard = 3 rows × ~37px + 2 gaps + 5px top + safe-area bottom ≈ 136px + safe-area.
+     Add 12px breathing room so letter boxes never touch the keyboard. */
   .screen.game,
   .screen.jigsaw-game {
-    padding-bottom: calc(128px + env(safe-area-inset-bottom, 0px));
+    padding-bottom: calc(148px + env(safe-area-inset-bottom, 0px));
   }
 
-  /* Image area — restore natural padding, flex:1 does the rest */
-  .image-wrap { padding: 6px 16px 4px; }
-  .jigsaw-img-wrap { padding: 6px 16px 4px; }
+  /* Image area — cap height so letter boxes always have room */
+  .image-wrap {
+    padding: 6px 16px 4px;
+    max-height: 52vh;
+  }
+  .jigsaw-img-wrap {
+    padding: 6px 16px 4px;
+    max-height: 52vh;
+  }
 
   /* Letter boxes — auto height so wrong-count is never clipped */
   .boxes-wrap {
