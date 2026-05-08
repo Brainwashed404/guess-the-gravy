@@ -945,6 +945,82 @@
 .btn-secondary:active { transform: scale(0.97); }
 
 /* ═══════════════════════════════════════
+   MOBILE / DESKTOP RESPONSIVE LAYOUT
+═══════════════════════════════════════ */
+
+/* Compact action buttons shown in the game header on mobile */
+.header-btn {
+  font-family: 'Bangers', system-ui, sans-serif;
+  font-size: 17px;
+  font-weight: 400;
+  letter-spacing: 0.06em;
+  padding: 8px 16px;
+  border-radius: 10px;
+  border: none;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: transform 0.1s, opacity 0.12s;
+  -webkit-tap-highlight-color: transparent;
+  touch-action: manipulation;
+}
+.header-btn:active { transform: scale(0.95); }
+.header-btn-next { background: var(--accent); color: var(--accent-text); }
+.header-btn-skip { background: var(--accent); color: var(--accent-text); }
+.header-btn-hint { color: #111; }
+.header-btn-hint-2 { background: #22c55e; }
+.header-btn-hint-1 { background: #f97316; }
+.header-btn-hint-0 { background: #ef4444; opacity: 0.5; }
+
+/* ── Mobile portrait (≤768 px) ── */
+@media (max-width: 768px) {
+  /* QUIT left, action buttons right */
+  .game-header { justify-content: space-between; }
+
+  /* Show mobile header buttons */
+  .mobile-actions { display: flex; gap: 8px; align-items: center; }
+
+  /* Hide desktop action-area buttons */
+  .desktop-actions { display: none; }
+
+  /* Action areas shrink to just the result message */
+  .action-area {
+    height: auto;
+    min-height: 36px;
+    padding: 2px 20px max(6px, env(safe-area-inset-bottom));
+  }
+  .jigsaw-action {
+    height: auto;
+    min-height: 36px;
+    padding: 2px 20px max(6px, env(safe-area-inset-bottom));
+    justify-content: center;
+  }
+
+  /* Let the image grow to fill freed-up space */
+  .image-wrap { padding: 4px 16px 4px; }
+  .jigsaw-img-wrap { padding: 4px 16px 4px; }
+
+  /* Slightly tighter letter box area */
+  .boxes-wrap { height: 110px; }
+}
+
+/* ── Desktop (≥769 px) ── */
+@media (min-width: 769px) {
+  /* Hide mobile header buttons */
+  .mobile-actions { display: none; }
+
+  /* Show desktop action buttons */
+  .desktop-actions {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+  }
+
+  /* Hide touch keyboard — desktop uses physical keys */
+  .keyboard { display: none; }
+}
+
+/* ═══════════════════════════════════════
    ON-SCREEN KEYBOARD
 ═══════════════════════════════════════ */
 .keyboard {

@@ -205,6 +205,23 @@ export default function Game({ worldId, existingProgress, onComplete, onBack, br
       {gravyFail && <GravyFail onNext={handleNext} onRetry={handleRetry} />}
       <div className="game-header">
         <button className="back-btn" onClick={onBack}>QUIT</button>
+        {/* Mobile portrait: action buttons sit in the header row */}
+        {!gravyFail && (
+          <div className="mobile-actions">
+            {roundDone ? (
+              <button className="header-btn header-btn-next" onClick={handleNext}>
+                {index + 1 < queue.length ? "Next →" : "Finish 🏁"}
+              </button>
+            ) : (
+              <>
+                <button className={`header-btn header-btn-hint header-btn-hint-${2 - hintsUsed}`} onClick={handleHint}>
+                  Hint ({2 - hintsUsed})
+                </button>
+                <button className="header-btn header-btn-skip" onClick={handleSkip}>Skip</button>
+              </>
+            )}
+          </div>
+        )}
       </div>
 
       {/* Fighter energy bar */}
@@ -248,18 +265,21 @@ export default function Game({ worldId, existingProgress, onComplete, onBack, br
         >
           {resultMsg || "·"}
         </p>
-        {roundDone ? (
-          <button className="btn-action btn-next" onClick={handleNext}>
-            {index + 1 < queue.length ? "Next →" : "Finish 🏁"}
-          </button>
-        ) : (
-          <div className="round-btns">
-            <button className={`btn-action btn-hint btn-hint-${2 - hintsUsed}`} onClick={handleHint}>
-              Hint ({2 - hintsUsed})
+        {/* Desktop only: buttons below the result message */}
+        <div className="desktop-actions">
+          {roundDone ? (
+            <button className="btn-action btn-next" onClick={handleNext}>
+              {index + 1 < queue.length ? "Next →" : "Finish 🏁"}
             </button>
-            <button className="btn-action btn-skip" onClick={handleSkip}>Skip</button>
-          </div>
-        )}
+          ) : (
+            <div className="round-btns">
+              <button className={`btn-action btn-hint btn-hint-${2 - hintsUsed}`} onClick={handleHint}>
+                Hint ({2 - hintsUsed})
+              </button>
+              <button className="btn-action btn-skip" onClick={handleSkip}>Skip</button>
+            </div>
+          )}
+        </div>
       </div>
     </div>
   );

@@ -248,6 +248,18 @@ export default function JigsawGame({ worldId, onComplete, onBack, brandOverride 
       {gravyFail && <GravyFail onNext={handleNext} onRetry={handleRetry} />}
       <div className="game-header">
         <button className="back-btn" onClick={() => { stopTimer(); onBack(); }}>QUIT</button>
+        {/* Mobile portrait: Skip / Next in header */}
+        {!gravyFail && (
+          <div className="mobile-actions">
+            {roundDone ? (
+              <button className="header-btn header-btn-next" onClick={handleNext}>
+                {index + 1 < queue.length ? "Next →" : "Finish 🏁"}
+              </button>
+            ) : (
+              <button className="header-btn header-btn-skip" onClick={handleSkip}>Skip</button>
+            )}
+          </div>
+        )}
       </div>
 
       {/* ONE energy bar — the countdown timer */}
@@ -302,13 +314,16 @@ export default function JigsawGame({ worldId, onComplete, onBack, brandOverride 
         >
           {resultMsg || "·"}
         </p>
-        {roundDone ? (
-          <button className="btn-action btn-next" onClick={handleNext}>
-            {index + 1 < queue.length ? "Next →" : "Finish 🏁"}
-          </button>
-        ) : (
-          <button className="btn-action btn-skip" onClick={handleSkip}>Skip</button>
-        )}
+        {/* Desktop only */}
+        <div className="desktop-actions">
+          {roundDone ? (
+            <button className="btn-action btn-next" onClick={handleNext}>
+              {index + 1 < queue.length ? "Next →" : "Finish 🏁"}
+            </button>
+          ) : (
+            <button className="btn-action btn-skip" onClick={handleSkip}>Skip</button>
+          )}
+        </div>
       </div>
     </div>
   );
