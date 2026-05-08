@@ -974,7 +974,10 @@
 /* ── Mobile portrait (≤768 px) ── */
 @media (max-width: 768px) {
   /* QUIT left, action buttons right */
-  .game-header { justify-content: space-between; }
+  .game-header {
+    justify-content: space-between;
+    padding: 8px 12px 6px;
+  }
 
   /* Show mobile header buttons */
   .mobile-actions { display: flex; gap: 8px; align-items: center; }
@@ -982,33 +985,53 @@
   /* Hide desktop action-area buttons */
   .desktop-actions { display: none; }
 
-  /* Action areas shrink to just the result message */
-  .action-area {
-    height: auto;
-    min-height: 32px;
-    padding: 0 20px max(4px, env(safe-area-inset-bottom));
-  }
-  .jigsaw-action {
-    height: auto;
-    min-height: 32px;
-    padding: 0 20px max(4px, env(safe-area-inset-bottom));
-    justify-content: center;
+  /* Thinner energy bar — saves ~14px */
+  .energy-bar { height: 14px; }
+  .energy-wrap { padding: 4px 12px 3px; }
+
+  /* Keyboard is fixed at the bottom viewport edge — completely out of flex flow */
+  .keyboard {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 5;
   }
 
-  /* Let the image grow to fill freed-up space */
-  .image-wrap { padding: 4px 16px 2px; }
-  .jigsaw-img-wrap { padding: 4px 16px 2px; }
+  /* Push screen content clear of the fixed keyboard
+     (128px keys+gaps + safe-area for iPhone home indicator) */
+  .screen.game,
+  .screen.jigsaw-game {
+    padding-bottom: calc(128px + env(safe-area-inset-bottom, 0px));
+  }
 
-  /* Let letter boxes size naturally — don't clip the wrong-count */
+  /* Image area — restore natural padding, flex:1 does the rest */
+  .image-wrap { padding: 6px 16px 4px; }
+  .jigsaw-img-wrap { padding: 6px 16px 4px; }
+
+  /* Letter boxes — auto height so wrong-count is never clipped */
   .boxes-wrap {
     height: auto;
     flex-shrink: 0;
     padding: 0 14px 2px;
   }
 
-  /* Compact result message on mobile */
-  .action-msg { font-size: 18px; }
-  .wrong-count { font-size: 15px; margin: 1px 0 0; }
+  /* Action areas — result message only, no buttons */
+  .action-area {
+    height: auto;
+    min-height: 30px;
+    padding: 2px 20px 4px;
+  }
+  .jigsaw-action {
+    height: auto;
+    min-height: 30px;
+    padding: 2px 20px 4px;
+    justify-content: center;
+  }
+
+  /* Compact text on mobile */
+  .action-msg { font-size: 17px; }
+  .wrong-count { font-size: 14px; margin: 1px 0 0; }
 }
 
 /* ── Desktop (≥769 px) ── */
@@ -1032,12 +1055,11 @@
    ON-SCREEN KEYBOARD
 ═══════════════════════════════════════ */
 .keyboard {
-  flex-shrink: 0;
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: 5px;
-  padding: 5px 4px max(8px, env(safe-area-inset-bottom));
+  padding: 5px 4px max(10px, env(safe-area-inset-bottom));
   background: #d3d6da;
   width: 100%;
   box-sizing: border-box;
