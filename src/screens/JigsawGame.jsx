@@ -248,6 +248,11 @@ export default function JigsawGame({ worldId, onComplete, onBack, brandOverride 
       {gravyFail && <GravyFail onNext={handleNext} onRetry={handleRetry} />}
       <div className="game-header">
         <button className="back-btn" onClick={() => { stopTimer(); onBack(); }}>QUIT</button>
+        {roundDone && !gravyFail && resultMsg && (
+          <span className={`header-result-msg ${correct ? "result-correct" : "result-skipped"}`}>
+            {resultMsg}
+          </span>
+        )}
         {/* Mobile portrait: Skip / Next in header */}
         {!gravyFail && (
           <div className="mobile-actions">
@@ -288,11 +293,6 @@ export default function JigsawGame({ worldId, onComplete, onBack, brandOverride 
               />
             ))}
           </div>
-          {roundDone && !gravyFail && resultMsg && (
-            <div className={`image-result-msg ${correct ? "result-correct" : "result-skipped"}`}>
-              {resultMsg}
-            </div>
-          )}
         </div>
       </div>
 

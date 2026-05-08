@@ -205,6 +205,11 @@ export default function Game({ worldId, existingProgress, onComplete, onBack, br
       {gravyFail && <GravyFail onNext={handleNext} onRetry={handleRetry} />}
       <div className="game-header">
         <button className="back-btn" onClick={onBack}>QUIT</button>
+        {roundDone && !gravyFail && resultMsg && (
+          <span className={`header-result-msg ${skipped ? "result-skipped" : "result-correct"}`}>
+            {resultMsg}
+          </span>
+        )}
         {/* Mobile portrait: action buttons sit in the header row */}
         {!gravyFail && (
           <div className="mobile-actions">
@@ -242,11 +247,6 @@ export default function Game({ worldId, existingProgress, onComplete, onBack, br
           className={`sticker-img ${transitioning ? "spin-out" : "spin-in"}`}
           draggable={false}
         />
-        {roundDone && !gravyFail && resultMsg && (
-          <div className={`image-result-msg ${skipped ? "result-skipped" : "result-correct"}`}>
-            {resultMsg}
-          </div>
-        )}
       </div>
 
       <div className={`boxes-wrap ${justWrong ? "shake" : ""}`}>
