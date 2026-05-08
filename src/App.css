@@ -214,7 +214,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 24px 20px 8px;
+  padding: 8px 20px 4px;
   overflow: hidden;
 }
 
@@ -255,7 +255,7 @@
 /* ── Letter boxes — fixed height so the image never moves ── */
 .boxes-wrap {
   flex-shrink: 0;
-  height: 170px;
+  height: 130px;
   padding: 0 14px;
   display: flex;
   flex-direction: column;
@@ -343,8 +343,8 @@
 /* ── Action area ── */
 .action-area {
   flex-shrink: 0;
-  height: 130px;
-  padding: 0 20px max(20px, env(safe-area-inset-bottom));
+  height: 100px;
+  padding: 0 20px 8px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -479,7 +479,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 24px 20px 8px;
+  padding: 8px 20px 4px;
   overflow: hidden;
 }
 .jigsaw-img-inner {
@@ -520,8 +520,8 @@
 /* Input / result — mirrors action-area */
 .jigsaw-action {
   flex-shrink: 0;
-  height: 130px;
-  padding: 0 20px max(20px, env(safe-area-inset-bottom));
+  height: 100px;
+  padding: 0 20px 8px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -943,3 +943,64 @@
   border: 1.5px solid var(--border);
 }
 .btn-secondary:active { transform: scale(0.97); }
+
+/* ═══════════════════════════════════════
+   ON-SCREEN KEYBOARD
+═══════════════════════════════════════ */
+.keyboard {
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 4px max(10px, env(safe-area-inset-bottom));
+  background: #d3d6da;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.kb-row {
+  display: flex;
+  gap: 5px;
+  justify-content: center;
+}
+
+.kb-key {
+  font-family: 'Bangers', system-ui, sans-serif;
+  font-size: 18px;
+  font-weight: 400;
+  letter-spacing: 0.04em;
+  width: clamp(28px, 8.8vw, 42px);
+  height: clamp(42px, 11vw, 56px);
+  border-radius: 6px;
+  border: none;
+  background: #fff;
+  color: #111;
+  cursor: pointer;
+  box-shadow: 0 2px 0 #888, 0 3px 4px rgba(0,0,0,0.2);
+  transition: transform 0.08s, background 0.1s, box-shadow 0.08s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  line-height: 1;
+  -webkit-tap-highlight-color: transparent;
+  touch-action: manipulation;
+}
+.kb-key:active:not(:disabled) {
+  transform: translateY(2px);
+  box-shadow: 0 0 0 #888;
+}
+.kb-key.correct {
+  background: #6aaa64;
+  color: #fff;
+  box-shadow: 0 2px 0 #3d7a3a;
+}
+.kb-key.wrong {
+  background: #787c7e;
+  color: #fff;
+  box-shadow: 0 2px 0 #444;
+}
+.kb-key:disabled {
+  cursor: default;
+  opacity: 0.85;
+}

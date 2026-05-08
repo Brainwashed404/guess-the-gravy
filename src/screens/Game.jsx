@@ -6,6 +6,7 @@ import {
   soundSkip, soundWhoosh,
 } from "../data/sounds";
 import LetterBoxes from "../components/LetterBoxes";
+import Keyboard from "../components/Keyboard";
 import GameIntro from "../components/GameIntro";
 import GravyFail from "../components/GravyFail";
 
@@ -232,6 +233,13 @@ export default function Game({ worldId, existingProgress, onComplete, onBack, br
           <p className="wrong-count">✗ {wrongCount} wrong</p>
         )}
       </div>
+
+      <Keyboard
+        onGuess={handleGuess}
+        correct={guessed}
+        wrong={wrong}
+        disabled={roundDone || gravyFail}
+      />
 
       <div className="action-area">
         <p

@@ -5,6 +5,7 @@ import {
   soundCorrectLetter, soundWrongLetter, soundComplete, soundSkip, soundWhoosh, soundTick,
 } from "../data/sounds";
 import LetterBoxes from "../components/LetterBoxes";
+import Keyboard from "../components/Keyboard";
 import GameIntro from "../components/GameIntro";
 import GravyFail from "../components/GravyFail";
 
@@ -285,6 +286,13 @@ export default function JigsawGame({ worldId, onComplete, onBack, brandOverride 
           <p className="wrong-count">✗ {wrongCount} wrong</p>
         )}
       </div>
+
+      <Keyboard
+        onGuess={handleGuess}
+        correct={guessed}
+        wrong={wrong}
+        disabled={roundDone || gravyFail}
+      />
 
       {/* Result area */}
       <div className="jigsaw-action">
