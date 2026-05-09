@@ -151,7 +151,8 @@
   display: flex;
   justify-content: flex-end;
   align-items: center;
-  padding: 12px 16px 10px;
+  /* env(safe-area-inset-top) pushes content below the notch in PWA/standalone mode */
+  padding: max(12px, env(safe-area-inset-top)) 16px 10px;
   flex-shrink: 0;
 }
 .back-btn {
@@ -505,9 +506,10 @@
 }
 .jigsaw-img-inner {
   position: relative;
-  height: 100%;
   aspect-ratio: 1;
+  width: 100%;
   max-width: 100%;
+  max-height: 100%;
   border-radius: 16px;
   overflow: hidden;
   border: 2px solid #111;
@@ -994,10 +996,10 @@
 
 /* ── Mobile portrait (≤768 px) ── */
 @media (max-width: 768px) {
-  /* QUIT left, action buttons right */
+  /* QUIT left, action buttons right; keep notch clearance */
   .game-header {
     justify-content: space-between;
-    padding: 8px 12px 6px;
+    padding: max(8px, env(safe-area-inset-top)) 12px 6px;
   }
 
   /* Show mobile header buttons */
@@ -1034,7 +1036,10 @@
   }
   .jigsaw-img-wrap {
     padding: 6px 16px 4px;
-    max-height: 52vh;
+    /* Definite height so jigsaw-img-inner's max-height:100% resolves correctly */
+    height: 48vh;
+    max-height: 48vh;
+    flex: 0 0 auto;
   }
 
   /* Letter boxes — auto height so wrong-count is never clipped */
