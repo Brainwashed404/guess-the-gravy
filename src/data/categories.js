@@ -3,6 +3,7 @@ export const ALIASES = {
   "NASA (2)":          "NASA",
   "DUCATI CLASSIC":    "DUCATI",
   "DORITOS CLASSIC":   "DORITOS",
+  "BEN AND JERRY'S":   "BEN AND JERRY'S",
 };
 
 export const CATEGORIES = [
@@ -25,7 +26,7 @@ export const CATEGORIES = [
     emoji: "🍬",
     color: "#9b2d8b",
     brands: [
-      "AERO", "BEN & JERRY'S", "BOUNTY", "BUBBALICIOUS", "CAP'N'CRUNCH",
+      "AERO", "BEN AND JERRY'S", "BOUNTY", "BUBBALICIOUS", "CAP'N'CRUNCH",
       "CHEETOS", "CHIPS AHOY", "CHIQUITA", "CHUPA CHUPS", "CRUNCH",
       "DAIM", "DEL MONTE", "DOLE", "DORITOS CLASSIC", "FAIRY",
       "FLIPZ", "FRUIT LOOPS", "HARIBO", "HEINZ", "HELLO PANDA",
