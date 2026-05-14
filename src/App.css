@@ -1027,8 +1027,10 @@
     padding: max(8px, env(safe-area-inset-top)) 12px 6px;
   }
 
-  /* Show mobile header buttons */
-  .mobile-actions { display: flex; gap: 8px; align-items: center; }
+  /* Pin QUIT and the right-side actions to the same min-width so the centre
+     slot is always truly centred — without this the wrong-count drifts left */
+  .back-btn       { min-width: 62px; flex-shrink: 0; }
+  .mobile-actions { display: flex; gap: 8px; align-items: center; justify-content: flex-end; min-width: 62px; flex-shrink: 0; }
 
   /* Hide desktop action-area buttons */
   .desktop-actions { display: none; }
@@ -1128,9 +1130,12 @@
   /* Hide mobile header buttons */
   .mobile-actions { display: none; }
 
-  /* QUIT always top-right — push it after center content via order */
+  /* QUIT stays top-left — items flow from the start */
   .game-header { justify-content: flex-start; }
-  .back-btn    { order: 99; margin-left: auto; }
+
+  /* On desktop the desktop-actions panel already shows Next — hide the
+     duplicate that lives in round-btns (which is mobile-only for Next) */
+  .screen.sliding-game .round-btns .btn-action.btn-next { display: none; }
 
   /* Show desktop action buttons */
   .desktop-actions {

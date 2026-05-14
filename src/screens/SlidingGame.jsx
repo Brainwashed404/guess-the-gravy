@@ -299,14 +299,8 @@ export default function SlidingGame({ worldId, onComplete, onBack, brandOverride
             {answer}
           </span>
         )}
-        {/* Mobile: Next button in header, matching other modes */}
-        <div className="mobile-actions">
-          {roundDone && (
-            <button className="header-btn header-btn-next" onClick={handleNext}>
-              {index + 1 < queue.length ? "Next →" : "Finish 🏁"}
-            </button>
-          )}
-        </div>
+        {/* No mobile-actions — Next button lives below the board */}
+        <div className="mobile-actions" />
       </div>
 
       <div className="energy-wrap">
@@ -349,8 +343,14 @@ export default function SlidingGame({ worldId, onComplete, onBack, brandOverride
             </button>
           )}
         </div>
-        {/* Mobile + desktop: Hint/Skip while playing */}
-        {!roundDone && (
+        {/* Below-board buttons — Hint/Skip while playing, Next when done */}
+        {roundDone ? (
+          <div className="round-btns">
+            <button className="btn-action btn-next" onClick={handleNext}>
+              {index + 1 < queue.length ? "Next →" : "Finish 🏁"}
+            </button>
+          </div>
+        ) : (
           <div className="round-btns">
             <button className={`btn-action btn-hint btn-hint-${2 - peeksUsed}`} onClick={handlePeek}>
               Hint ({2 - peeksUsed})
