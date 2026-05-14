@@ -285,6 +285,20 @@ export default function SlidingGame({ worldId, onComplete, onBack, brandOverride
       )}
       <div className="game-header">
         <button className="back-btn" onClick={onBack}>QUIT</button>
+        {/* Centre: brand name revealed when round ends */}
+        {roundDone && (
+          <span className={`header-result-msg ${skipped ? "result-skipped" : "result-correct"}`}>
+            {answer}
+          </span>
+        )}
+        {/* Mobile: Next button in header, matching other modes */}
+        <div className="mobile-actions">
+          {roundDone && (
+            <button className="header-btn header-btn-next" onClick={handleNext}>
+              {index + 1 < queue.length ? "Next →" : "Finish 🏁"}
+            </button>
+          )}
+        </div>
       </div>
 
       <div className="energy-wrap">
@@ -314,16 +328,21 @@ export default function SlidingGame({ worldId, onComplete, onBack, brandOverride
       </div>
 
       <div className="action-area">
-        {roundDone && (
-          <p className={`action-msg ${skipped ? "skipped-msg" : "correct-msg"}`}>
-            {resultMsg || "·"}
-          </p>
-        )}
-        {roundDone ? (
-          <button className="btn-action btn-next" onClick={handleNext}>
-            {index + 1 < queue.length ? "Next →" : "Finish 🏁"}
-          </button>
-        ) : (
+        {/* Desktop only: result message and Next button */}
+        <div className="desktop-actions">
+          {roundDone && (
+            <p className={`action-msg ${skipped ? "skipped-msg" : "correct-msg"}`}>
+              {resultMsg || "·"}
+            </p>
+          )}
+          {roundDone && (
+            <button className="btn-action btn-next" onClick={handleNext}>
+              {index + 1 < queue.length ? "Next →" : "Finish 🏁"}
+            </button>
+          )}
+        </div>
+        {/* Mobile + desktop: Hint/Skip while playing */}
+        {!roundDone && (
           <div className="round-btns">
             <button className={`btn-action btn-hint btn-hint-${2 - peeksUsed}`} onClick={handlePeek}>
               Hint ({2 - peeksUsed})
