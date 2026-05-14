@@ -616,7 +616,7 @@
   height: 100%;
   aspect-ratio: 1;
   max-width: 100%;
-  background: #111;
+  background: #ddd;   /* light grey gap between tiles — not black */
   border: 2px solid #111;
   border-radius: 16px;
   overflow: hidden;
@@ -653,11 +653,13 @@
 /* Each tile is absolutely positioned — left/top animate on move */
 .slide-tile {
   position: absolute;
+  background-color: #fff;  /* white while image is loading */
   background-repeat: no-repeat;
   border-radius: 2px;
   transition: left 0.12s ease, top 0.12s ease;
   user-select: none;
   -webkit-user-drag: none;
+  touch-action: none;       /* let our handlers manage touch, not the browser */
 }
 .slide-tile:active { filter: brightness(0.88); }
 
@@ -1051,11 +1053,17 @@
     padding-bottom: calc(170px + env(safe-area-inset-bottom, 0px));
   }
 
-  /* Easy mode image — cap height, add breathing room top and bottom */
+  /* Easy mode image — fixed height like jigsaw so UI never jumps on load */
   .image-wrap {
-    padding: 14px 16px 14px;
-    max-height: 42vh;
-    flex-shrink: 0;
+    padding: 0;
+    margin: 10px auto 16px;
+    width: calc(100vw - 32px);
+    height: 40vh;
+    flex: 0 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
   }
 
   /* Jigsaw: explicit square via min() so Safari can't break the aspect ratio */

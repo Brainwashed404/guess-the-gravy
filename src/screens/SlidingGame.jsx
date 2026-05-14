@@ -110,7 +110,8 @@ export default function SlidingGame({ worldId, onComplete, onBack, brandOverride
   );
   const [peeking, setPeeking] = useState(false);
   const [peeksUsed, setPeeksUsed] = useState(0);
-  const peekTimerRef = useRef(null);
+  const peekTimerRef   = useRef(null);
+  const touchStartRef  = useRef({ x: 0, y: 0 });
 
   const brand    = queue[index];
   const answer   = getAnswer(brand);
@@ -207,6 +208,39 @@ export default function SlidingGame({ worldId, onComplete, onBack, brandOverride
     return () => window.removeEventListener("keydown", handler);
   }, [handleNext, roundDone]);
 
+  const handleGridTouchStart = useCallback((e) => {
+    touchStartRef.current = { x: e.touches[0].clientX, y: e.touches[0].clientY };
+  }, []);
+
+  const handleGridTouchEnd = useCallback((e) => {
+    const dx = e.changedTouches[0].clientX - touchStartRef.current.x;
+    const dy = e.changedTouches[0].clientY - touchStartRef.current.y;
+    const adx = Math.abs(dx), ady = Math.abs(dy);
+    if (adx < 8 && ady < 8) return; // tiny movement = tap, let onClick handle it
+    e.preventDefault();
+
+    // Work out which grid cell the touch started in
+    const rect = e.currentTarget.getBoundingClientRect();
+    const sx = touchStartRef.current.x - rect.left;
+    const sy = touchStartRef.current.y - rect.top;
+    const col = Math.min(Math.floor((sx / rect.width)  * SIZE), SIZE - 1);
+    const row = Math.min(Math.floor((sy / rect.height) * SIZE), SIZE - 1);
+    const pos = row * SIZE + col;
+
+    const ep       = tiles.indexOf(EMPTY);
+    const emptyRow = Math.floor(ep / SIZE);
+    const emptyCol = ep % SIZE;
+
+    // Only fire if the swipe goes toward the empty space
+    if (adx > ady) {
+      if (dx > 0 && emptyRow === row && emptyCol === col + 1) handleTileClick(pos);
+      if (dx < 0 && emptyRow === row && emptyCol === col - 1) handleTileClick(pos);
+    } else {
+      if (dy > 0 && emptyRow === row + 1 && emptyCol === col) handleTileClick(pos);
+      if (dy < 0 && emptyRow === row - 1 && emptyCol === col) handleTileClick(pos);
+    }
+  }, [tiles, handleTileClick]);
+
   const tileElems = Array.from({ length: TOTAL - 1 }, (_, tv) => {
     const pos    = tiles.indexOf(tv);
     const col    = pos % SIZE;
@@ -260,7 +294,11 @@ export default function SlidingGame({ worldId, onComplete, onBack, brandOverride
       </div>
 
       <div className="slide-wrap">
-        <div className={`slide-grid ${roundDone && !skipped ? "wiggle" : ""} ${transitioning ? "spin-out" : "spin-in"}`}>
+        <div
+          className={`slide-grid ${roundDone && !skipped ? "wiggle" : ""} ${transitioning ? "spin-out" : "spin-in"}`}
+          onTouchStart={handleGridTouchStart}
+          onTouchEnd={handleGridTouchEnd}
+        >
           <div
             className="slide-ghost"
             style={{ backgroundImage: `url('${imageSrc}')` }}
