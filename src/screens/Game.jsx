@@ -125,7 +125,7 @@ export default function Game({ worldId, existingProgress, onComplete, onBack, br
   // Auto-advance after a correct guess
   useEffect(() => {
     if (roundDone && !skipped && !gravyFail) {
-      const t = setTimeout(() => handleNext(), 1500);
+      const t = setTimeout(() => handleNext(), 900);
       return () => clearTimeout(t);
     }
   }, [roundDone, skipped, gravyFail, handleNext]);

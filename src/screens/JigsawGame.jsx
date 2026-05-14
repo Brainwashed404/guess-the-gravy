@@ -200,7 +200,7 @@ export default function JigsawGame({ worldId, onComplete, onBack, brandOverride 
   // Auto-advance after a correct guess
   useEffect(() => {
     if (roundDone && correct && !gravyFail) {
-      const t = setTimeout(() => handleNext(), 1500);
+      const t = setTimeout(() => handleNext(), 900);
       return () => clearTimeout(t);
     }
   }, [roundDone, correct, gravyFail, handleNext]);
