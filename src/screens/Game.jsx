@@ -115,6 +115,7 @@ export default function Game({ worldId, existingProgress, onComplete, onBack, br
       setResultMsg("");
       setHintsUsed(0);
       setGravyFail(false);
+      setWasRevealed(false);
       setTransitioning(false);
     }, 200);
   }, [wrongCount, skipped, brandStars, index, queue.length, onComplete, worldId]);
@@ -163,9 +164,11 @@ export default function Game({ worldId, existingProgress, onComplete, onBack, br
     setGravyFail(false);
   };
 
+  const [wasRevealed, setWasRevealed] = useState(false);
+
   const handleReveal = () => {
-    // Dismiss poo screen — revealed prop becomes true, showing the answer
     setGravyFail(false);
+    setWasRevealed(true);
     setTimeout(() => handleNext(), 2000);
   };
 
@@ -261,7 +264,7 @@ export default function Game({ worldId, existingProgress, onComplete, onBack, br
       </div>
 
       <div className={`boxes-wrap ${justWrong ? "shake" : ""}`}>
-        <LetterBoxes answer={answer} guessed={guessed} revealed={(skipped || roundDone) && !gravyFail} correct={!skipped && roundDone && !gravyFail} />
+        <LetterBoxes answer={answer} guessed={guessed} revealed={(skipped || roundDone) && !gravyFail} correct={((!skipped && roundDone) || wasRevealed) && !gravyFail} />
         {wrongCount > 0 && !roundDone && (
           <p className="wrong-count">✗ {wrongCount} wrong</p>
         )}

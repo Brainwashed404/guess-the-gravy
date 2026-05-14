@@ -185,6 +185,7 @@ export default function JigsawGame({ worldId, onComplete, onBack, brandOverride 
       setCorrect(false);
       setResultMsg("");
       setGravyFail(false);
+      setWasRevealed(false);
       setTransitioning(false);
       roundStart.current = Date.now();
       tick();
@@ -238,10 +239,12 @@ export default function JigsawGame({ worldId, onComplete, onBack, brandOverride 
     startTimer();
   };
 
+  const [wasRevealed, setWasRevealed] = useState(false);
+
   const handleReveal = () => {
-    // Dismiss poo screen, show full image + answer, then auto-advance
     setGravyFail(false);
-    setRevealedCount(TOTAL); // clear all tiles so the logo is visible
+    setWasRevealed(true);
+    setRevealedCount(TOTAL);
     setTimeout(() => handleNext(), 2000);
   };
 
@@ -311,7 +314,7 @@ export default function JigsawGame({ worldId, onComplete, onBack, brandOverride 
 
       {/* Letter boxes — identical to main game */}
       <div className={`boxes-wrap ${justWrong ? "shake" : ""}`}>
-        <LetterBoxes answer={answer} guessed={guessed} revealed={roundDone && !gravyFail} correct={correct && !gravyFail} />
+        <LetterBoxes answer={answer} guessed={guessed} revealed={roundDone && !gravyFail} correct={(correct || wasRevealed) && !gravyFail} />
         {wrongCount > 0 && !roundDone && (
           <p className="wrong-count">✗ {wrongCount} wrong</p>
         )}

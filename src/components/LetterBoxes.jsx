@@ -88,7 +88,7 @@ export default function LetterBoxes({ answer, guessed, revealed, correct }) {
                   <div
                     key={ti}
                     className={`letter-box ${show ? "filled" : ""} ${
-                      revealed && !guessed.has(tok.char) ? "revealed" : ""
+                      revealed && !guessed.has(tok.char) && !correct ? "revealed" : ""
                     } ${celebrateClass}`}
                     style={{ width: boxWidth, height: boxHeight, fontSize, animationDelay: delay }}
                   >
