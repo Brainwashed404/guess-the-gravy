@@ -145,14 +145,6 @@ export default function JigsawGame({ worldId, onComplete, onBack, brandOverride 
     }
   }, [wrongCount, roundDone, stopTimer]);
 
-  // Auto-advance after a correct guess
-  useEffect(() => {
-    if (roundDone && correct && !gravyFail) {
-      const t = setTimeout(() => handleNext(), 1500);
-      return () => clearTimeout(t);
-    }
-  }, [roundDone, correct, gravyFail, handleNext]);
-
   // Keyboard input — same mechanic as the main game
   const handleGuess = useCallback((letter) => {
     if (roundDone || guessed.has(letter) || wrong.has(letter)) return;
@@ -199,6 +191,14 @@ export default function JigsawGame({ worldId, onComplete, onBack, brandOverride 
       startTimer();
     }, 200);
   }, [revealedCount, correct, brandStars, index, queue.length, onComplete, worldId, startTimer]);
+
+  // Auto-advance after a correct guess
+  useEffect(() => {
+    if (roundDone && correct && !gravyFail) {
+      const t = setTimeout(() => handleNext(), 1500);
+      return () => clearTimeout(t);
+    }
+  }, [roundDone, correct, gravyFail, handleNext]);
 
   useEffect(() => {
     const handler = (e) => {
