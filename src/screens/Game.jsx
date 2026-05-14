@@ -264,7 +264,7 @@ export default function Game({ worldId, existingProgress, onComplete, onBack, br
       </div>
 
       <div className={`boxes-wrap ${justWrong ? "shake" : ""}`}>
-        <LetterBoxes answer={answer} guessed={guessed} revealed={(skipped || roundDone) && !gravyFail} />
+        <LetterBoxes answer={answer} guessed={guessed} revealed={(skipped || roundDone) && !gravyFail} correct={!skipped && roundDone && !gravyFail} />
         {wrongCount > 0 && !roundDone && (
           <p className="wrong-count">✗ {wrongCount} wrong</p>
         )}

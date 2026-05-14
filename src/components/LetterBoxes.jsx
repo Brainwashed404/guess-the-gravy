@@ -4,7 +4,7 @@ const GAP = 3;       // gap between letter boxes
 const WORD_GAP = 14; // extra space between words on the same line
 const PADDING = 32;  // total horizontal padding
 
-export default function LetterBoxes({ answer, guessed, revealed }) {
+export default function LetterBoxes({ answer, guessed, revealed, correct }) {
   const tokens = parseAnswer(answer);
 
   // Group tokens into words (split on spaces)
@@ -60,6 +60,9 @@ export default function LetterBoxes({ answer, guessed, revealed }) {
   }
   if (line.length) lines.push(line);
 
+  // Track global letter index for staggered animation delay
+  let letterIdx = 0;
+
   return (
     <div className="letter-boxes">
       {lines.map((lineWords, li) => (
@@ -76,13 +79,18 @@ export default function LetterBoxes({ answer, guessed, revealed }) {
                   );
                 }
                 const show = revealed || guessed.has(tok.char);
+                const celebrateClass = revealed
+                  ? (correct ? "celebrate-correct" : "celebrate-reveal")
+                  : "";
+                const delay = revealed ? `${letterIdx * 55}ms` : "0ms";
+                letterIdx++;
                 return (
                   <div
                     key={ti}
                     className={`letter-box ${show ? "filled" : ""} ${
                       revealed && !guessed.has(tok.char) ? "revealed" : ""
-                    }`}
-                    style={{ width: boxWidth, height: boxHeight, fontSize }}
+                    } ${celebrateClass}`}
+                    style={{ width: boxWidth, height: boxHeight, fontSize, animationDelay: delay }}
                   >
                     {show ? tok.char : ""}
                   </div>

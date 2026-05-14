@@ -313,7 +313,7 @@ export default function JigsawGame({ worldId, onComplete, onBack, brandOverride 
 
       {/* Letter boxes — identical to main game */}
       <div className={`boxes-wrap ${justWrong ? "shake" : ""}`}>
-        <LetterBoxes answer={answer} guessed={guessed} revealed={roundDone && !gravyFail} />
+        <LetterBoxes answer={answer} guessed={guessed} revealed={roundDone && !gravyFail} correct={correct && !gravyFail} />
         {wrongCount > 0 && !roundDone && (
           <p className="wrong-count">✗ {wrongCount} wrong</p>
         )}
