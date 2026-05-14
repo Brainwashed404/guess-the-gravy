@@ -4,6 +4,7 @@ export const ALIASES = {
   "DUCATI CLASSIC":    "DUCATI",
   "DORITOS CLASSIC":   "DORITOS",
   "BEN AND JERRY'S":   "BEN AND JERRY'S",
+  "JIM BEAN":          "JIM BEAM",
 };
 
 export const CATEGORIES = [
