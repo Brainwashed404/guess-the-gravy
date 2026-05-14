@@ -1193,8 +1193,11 @@
     gap: 32px;
     padding: 40px 48px;
   }
+  /* % is relative to the container (ts-inner), so the logo tracks
+     the container width as the window resizes rather than hitting a
+     fixed pixel cap like min(55vw, 540px) did */
   .ts-logo {
-    width: min(55vw, 540px);
+    width: clamp(360px, 85%, 680px);
   }
   .ts-subtitle {
     font-size: 24px;
