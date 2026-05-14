@@ -1,8 +1,9 @@
 import { useState, useEffect, useRef, useMemo, useCallback } from "react";
 import { CATEGORIES } from "../data/categories";
 import { getAnswer, getUniqueLetters, sortedBrands } from "../data/gameUtils";
+import { getHint } from "../data/brandHints";
 import {
-  soundCorrectLetter, soundWrongLetter, soundComplete, soundSkip, soundWhoosh, soundTick,
+  soundChime, soundRevealChimes, soundWrongLetter, soundComplete, soundSkip, soundWhoosh, soundTick,
 } from "../data/sounds";
 import LetterBoxes from "../components/LetterBoxes";
 import Keyboard from "../components/Keyboard";
@@ -135,6 +136,7 @@ export default function JigsawGame({ worldId, onComplete, onBack, brandOverride 
     }
   }, [isComplete, roundDone, stopTimer]);
 
+  const [hintsUsed, setHintsUsed] = useState(0);
   const [gravyFail, setGravyFail] = useState(false);
 
   useEffect(() => {
@@ -150,7 +152,7 @@ export default function JigsawGame({ worldId, onComplete, onBack, brandOverride 
   const handleGuess = useCallback((letter) => {
     if (roundDone || guessed.has(letter) || wrong.has(letter)) return;
     if (uniqueLetters.has(letter)) {
-      soundCorrectLetter();
+      soundChime(guessed.size);
       setGuessed((prev) => new Set([...prev, letter]));
     } else {
       soundWrongLetter();
@@ -185,6 +187,7 @@ export default function JigsawGame({ worldId, onComplete, onBack, brandOverride 
       setRoundDone(false);
       setCorrect(false);
       setResultMsg("");
+      setHintsUsed(0);
       setGravyFail(false);
       setWasRevealed(false);
       setTransitioning(false);
@@ -213,6 +216,17 @@ export default function JigsawGame({ worldId, onComplete, onBack, brandOverride 
     return () => window.removeEventListener("keydown", handler);
   }, [handleGuess, handleNext, roundDone]);
 
+  const handleHint = () => {
+    if (roundDone) return;
+    if (hintsUsed >= 2) { soundWrongLetter(); return; }
+    const remaining = [...uniqueLetters].filter(l => !guessed.has(l));
+    if (remaining.length === 0) return;
+    const letter = remaining[Math.floor(Math.random() * remaining.length)];
+    soundChime(guessed.size);
+    setGuessed(prev => new Set([...prev, letter]));
+    setHintsUsed(h => h + 1);
+  };
+
   const handleSkip = () => {
     if (roundDone) return;
     soundSkip();
@@ -234,6 +248,7 @@ export default function JigsawGame({ worldId, onComplete, onBack, brandOverride 
     setRoundDone(false);
     setCorrect(false);
     setResultMsg("");
+    setHintsUsed(0);
     setGravyFail(false);
     roundStart.current = Date.now();
     tick();
@@ -246,6 +261,7 @@ export default function JigsawGame({ worldId, onComplete, onBack, brandOverride 
     setGravyFail(false);
     setWasRevealed(true);
     setRevealedCount(TOTAL);
+    soundRevealChimes(uniqueLetters.size);
     setTimeout(() => handleNext(), 2000);
   };
 
@@ -271,15 +287,21 @@ export default function JigsawGame({ worldId, onComplete, onBack, brandOverride 
           <span className={`header-result-msg ${correct ? "result-correct" : "result-skipped"}`}>
             {resultMsg}
           </span>
+        ) : !roundDone && hintsUsed > 0 && getHint(brand, hintsUsed) ? (
+          <span className="header-hint-text">{getHint(brand, hintsUsed)}</span>
         ) : null}
-        {/* Mobile portrait: Skip / Next in header */}
+        {/* Mobile portrait: Hint / Next in header */}
         {!gravyFail && (
           <div className="mobile-actions">
             {roundDone ? (
               <button className="header-btn header-btn-next" onClick={handleNext}>
                 {index + 1 < queue.length ? "Next →" : "Finish 🏁"}
               </button>
-            ) : null}
+            ) : (
+              <button className={`header-btn header-btn-hint header-btn-hint-${2 - hintsUsed}`} onClick={handleHint}>
+                Hint ({2 - hintsUsed})
+              </button>
+            )}
           </div>
         )}
       </div>
@@ -343,7 +365,11 @@ export default function JigsawGame({ worldId, onComplete, onBack, brandOverride 
             <button className="btn-action btn-next" onClick={handleNext}>
               {index + 1 < queue.length ? "Next →" : "Finish 🏁"}
             </button>
-          ) : null}
+          ) : (
+            <button className={`btn-action btn-hint btn-hint-${2 - hintsUsed}`} onClick={handleHint}>
+              Hint ({2 - hintsUsed})
+            </button>
+          )}
         </div>
       </div>
     </div>

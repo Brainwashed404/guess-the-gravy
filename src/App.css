@@ -261,8 +261,9 @@
   animation: header-msg-in 0.2s cubic-bezier(0.34, 1.4, 0.64, 1) both;
 }
 
-/* ── Life bar — vertical strip beside the logo box ── */
+/* ── Life bar — vertical strip pinned to left of the image area ── */
 .game-img-row {
+  position: relative;        /* life-bar anchors to this */
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -270,22 +271,21 @@
   flex-shrink: 0;
 }
 
+/* Absolutely positioned so it never affects image centering or sizing */
 .life-bar {
+  position: absolute;
+  left: 8px;
+  top: 50%;
+  transform: translateY(-50%);
   display: flex;
-  flex-direction: column;   /* vertical stack */
+  flex-direction: column;
   align-items: center;
-  justify-content: center;
   gap: 8px;
-  flex-shrink: 0;
-  margin-right: 10px;
+  z-index: 1;
 }
 
-/* Mirror spacer keeps the logo visually centred */
-.life-bar-spacer {
-  width: 28px;   /* pip width */
-  margin-left: 10px;
-  flex-shrink: 0;
-}
+/* Spacer no longer needed — life bar is out of flex flow */
+.life-bar-spacer { display: none; }
 
 .life-pip {
   display: block;
@@ -1187,7 +1187,20 @@
   .mobile-actions { display: none; }
 
   /* QUIT stays top-left — items flow from the start */
-  .game-header { justify-content: flex-start; }
+  .game-header {
+    justify-content: flex-start;
+    position: relative; /* anchor for absolutely-centred result/hint text */
+  }
+
+  /* True centre of the header regardless of QUIT button width */
+  .header-result-msg,
+  .header-hint-text {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    flex: none;
+    max-width: 60%;
+  }
 
   /* On desktop the desktop-actions panel already shows Next — hide the
      duplicate that lives in round-btns (which is mobile-only for Next) */

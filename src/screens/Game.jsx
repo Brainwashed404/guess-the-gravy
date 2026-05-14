@@ -3,7 +3,7 @@ import { CATEGORIES } from "../data/categories";
 import { getAnswer, getUniqueLetters, sortedBrands, calcStars } from "../data/gameUtils";
 import { getHint } from "../data/brandHints";
 import {
-  soundCorrectLetter, soundWrongLetter, soundComplete,
+  soundChime, soundRevealChimes, soundWrongLetter, soundComplete,
   soundSkip, soundWhoosh,
 } from "../data/sounds";
 import LetterBoxes from "../components/LetterBoxes";
@@ -83,7 +83,7 @@ export default function Game({ worldId, existingProgress, onComplete, onBack, br
   const handleGuess = useCallback((letter) => {
     if (roundDone || skipped || guessed.has(letter) || wrong.has(letter)) return;
     if (uniqueLetters.has(letter)) {
-      soundCorrectLetter();
+      soundChime(guessed.size);
       setGuessed((prev) => new Set([...prev, letter]));
     } else {
       soundWrongLetter();
@@ -149,7 +149,7 @@ export default function Game({ worldId, existingProgress, onComplete, onBack, br
     const remaining = [...uniqueLetters].filter(l => !guessed.has(l));
     if (remaining.length === 0) return;
     const letter = remaining[Math.floor(Math.random() * remaining.length)];
-    soundCorrectLetter();
+    soundChime(guessed.size);
     setGuessed(prev => new Set([...prev, letter]));
     setHintsUsed(h => h + 1);
   };
@@ -171,6 +171,7 @@ export default function Game({ worldId, existingProgress, onComplete, onBack, br
   const handleReveal = () => {
     setGravyFail(false);
     setWasRevealed(true);
+    soundRevealChimes(uniqueLetters.size);
     setTimeout(() => handleNext(), 2000);
   };
 

@@ -34,6 +34,50 @@ export function soundCorrectLetter() {
   });
 }
 
+// Pentatonic scale — C D E G A across two octaves
+const CHIME_NOTES = [523, 587, 659, 784, 880, 1047, 1175, 1319, 1568, 1760];
+
+// Xylophone-style chime — pitch steps up with each correct letter (index = guessed count before this letter)
+export function soundChime(index = 0) {
+  play((ctx) => {
+    const freq = CHIME_NOTES[index % CHIME_NOTES.length];
+    // Fundamental + bright overtone for xylophone character
+    [[freq, 0.2], [freq * 2, 0.05]].forEach(([f, vol]) => {
+      const o = ctx.createOscillator();
+      const g = ctx.createGain();
+      o.connect(g); g.connect(ctx.destination);
+      o.type = "sine";
+      o.frequency.setValueAtTime(f, ctx.currentTime);
+      g.gain.setValueAtTime(0, ctx.currentTime);
+      g.gain.linearRampToValueAtTime(vol, ctx.currentTime + 0.008);
+      g.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.42);
+      o.start(); o.stop(ctx.currentTime + 0.42);
+    });
+  });
+}
+
+// Cascade of chimes for all letters when the answer is revealed at once
+export function soundRevealChimes(count) {
+  play((ctx) => {
+    const n = Math.min(count, CHIME_NOTES.length);
+    for (let i = 0; i < n; i++) {
+      const freq = CHIME_NOTES[i];
+      const t = ctx.currentTime + i * 0.07;
+      [[freq, 0.18], [freq * 2, 0.04]].forEach(([f, vol]) => {
+        const o = ctx.createOscillator();
+        const g = ctx.createGain();
+        o.connect(g); g.connect(ctx.destination);
+        o.type = "sine";
+        o.frequency.setValueAtTime(f, t);
+        g.gain.setValueAtTime(0, t);
+        g.gain.linearRampToValueAtTime(vol, t + 0.008);
+        g.gain.exponentialRampToValueAtTime(0.001, t + 0.42);
+        o.start(t); o.stop(t + 0.42);
+      });
+    }
+  });
+}
+
 // Buzzer for wrong letter
 export function soundWrongLetter() {
   play((ctx) => {
