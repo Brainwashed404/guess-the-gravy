@@ -1148,10 +1148,11 @@
   /* Hide touch keyboard — desktop uses physical keys */
   .keyboard { display: none !important; }
 
-  /* Header result message is mobile-only by default… */
-  .header-result-msg { display: none; }
-  /* …except in Impossible mode where the brand name lives there */
-  .screen.sliding-game .header-result-msg { display: block; }
+  /* Result message always lives above the energy bar in the header on desktop */
+  .header-result-msg { display: block; }
+
+  /* Hide the in-body action-msg — it's now in the header */
+  .action-msg { display: none; }
 
   /* Jigsaw: keep the image area a proper square on wide viewports */
   .jigsaw-img-wrap {
