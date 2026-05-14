@@ -1193,11 +1193,11 @@
     gap: 32px;
     padding: 40px 48px;
   }
-  /* % is relative to the container (ts-inner), so the logo tracks
-     the container width as the window resizes rather than hitting a
-     fixed pixel cap like min(55vw, 540px) did */
+  /* vw tracks the actual viewport so the logo scales as the window resizes.
+     The parent container (ts-inner) caps out at 760px too early for % to
+     help — vw is the only unit that keeps scaling with the browser. */
   .ts-logo {
-    width: clamp(360px, 85%, 680px);
+    width: clamp(320px, 50vw, 720px);
   }
   .ts-subtitle {
     font-size: 24px;
