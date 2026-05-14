@@ -757,7 +757,7 @@
   flex-direction: column;
   gap: 12px;
   margin-top: 8px;
-  width: 100%;
+  width: min(280px, 80vw);
 }
 .poo-next-btn {
   font-family: 'Bangers', system-ui, sans-serif;
@@ -767,7 +767,7 @@
   color: #230900;
   border: none;
   border-radius: 16px;
-  padding: 16px 32px;
+  padding: 16px 0;
   cursor: pointer;
   transition: transform 0.1s;
   width: 100%;
