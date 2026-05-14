@@ -67,14 +67,6 @@ export default function Game({ worldId, existingProgress, onComplete, onBack, br
     }
   }, [isComplete, roundDone, wrongCount]);
 
-  // Auto-advance after a correct guess
-  useEffect(() => {
-    if (roundDone && !skipped && !gravyFail) {
-      const t = setTimeout(() => handleNext(), 1500);
-      return () => clearTimeout(t);
-    }
-  }, [roundDone, skipped, gravyFail, handleNext]);
-
   const [gravyFail, setGravyFail] = useState(false);
 
   useEffect(() => {
@@ -126,6 +118,14 @@ export default function Game({ worldId, existingProgress, onComplete, onBack, br
       setTransitioning(false);
     }, 200);
   }, [wrongCount, skipped, brandStars, index, queue.length, onComplete, worldId]);
+
+  // Auto-advance after a correct guess
+  useEffect(() => {
+    if (roundDone && !skipped && !gravyFail) {
+      const t = setTimeout(() => handleNext(), 1500);
+      return () => clearTimeout(t);
+    }
+  }, [roundDone, skipped, gravyFail, handleNext]);
 
   useEffect(() => {
     const handler = (e) => {
