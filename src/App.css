@@ -1051,21 +1051,22 @@
     padding-bottom: calc(170px + env(safe-area-inset-bottom, 0px));
   }
 
-  /* Image area — cap height so letter boxes always have room */
+  /* Easy mode image — cap height, add breathing room top and bottom */
   .image-wrap {
-    padding: 6px 16px 4px;
+    padding: 14px 16px 14px;
     max-height: 42vh;
+    flex-shrink: 0;
   }
+
+  /* Jigsaw: explicit square via min() so Safari can't break the aspect ratio */
   .jigsaw-img-wrap {
     padding: 0;
-    margin: 4px auto 14px;
-    /* Explicit square: whichever is smaller — 38vh or screen width minus side gaps */
+    margin: 10px auto 16px;
     width:  min(38vh, calc(100vw - 32px));
     height: min(38vh, calc(100vw - 32px));
     flex: 0 0 auto;
     align-self: center;
   }
-  /* Inner fills the square wrap exactly */
   .jigsaw-img-inner {
     width: 100%;
     height: 100%;
@@ -1073,14 +1074,30 @@
     max-height: 100%;
   }
 
-  /* Letter boxes — auto height so wrong-count is never clipped */
+  /* Sliding game: same explicit-square treatment, larger since no keyboard */
+  .slide-wrap {
+    flex: 0 0 auto;
+    padding: 10px 16px 16px;
+    align-self: center;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .slide-grid {
+    width:  min(52vh, calc(100vw - 32px));
+    height: min(52vh, calc(100vw - 32px));
+    /* aspect-ratio: 1 still set in base — this makes it explicit */
+  }
+
+  /* Letter boxes — add top gap so they breathe below the image */
   .boxes-wrap {
     height: auto;
     flex-shrink: 0;
-    padding: 0 14px 2px;
+    padding: 6px 14px 2px;
   }
 
-  /* Action areas gone on mobile — message lives on the image */
+  /* Action areas gone on mobile — message/buttons live in the header */
   .action-area  { display: none; }
   .jigsaw-action { display: none; }
 
