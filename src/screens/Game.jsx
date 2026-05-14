@@ -10,6 +10,7 @@ import LetterBoxes from "../components/LetterBoxes";
 import Keyboard from "../components/Keyboard";
 import GameIntro from "../components/GameIntro";
 import GravyFail from "../components/GravyFail";
+import LifeBar from "../components/LifeBar";
 
 
 const ALL_CAT = { id: "all", name: "Everything", emoji: "🎰", color: "#f5c842", brands: [] };
@@ -231,7 +232,7 @@ export default function Game({ worldId, existingProgress, onComplete, onBack, br
         ) : !roundDone && hintsUsed > 0 && getHint(brand, hintsUsed) ? (
           <span className="header-hint-text">{getHint(brand, hintsUsed)}</span>
         ) : wrongCount > 0 && !roundDone ? (
-          <span className="header-wrong-count">✗ {wrongCount} wrong</span>
+          <LifeBar wrongCount={wrongCount} />
         ) : null}
         {/* Mobile portrait: action buttons sit in the header row */}
         {!gravyFail && (

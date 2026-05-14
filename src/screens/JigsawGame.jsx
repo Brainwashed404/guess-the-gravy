@@ -8,6 +8,7 @@ import LetterBoxes from "../components/LetterBoxes";
 import Keyboard from "../components/Keyboard";
 import GameIntro from "../components/GameIntro";
 import GravyFail from "../components/GravyFail";
+import LifeBar from "../components/LifeBar";
 
 const ALL_CAT = { id: "all", name: "Everything", emoji: "🎰", color: "#f5c842", brands: [] };
 
@@ -271,7 +272,7 @@ export default function JigsawGame({ worldId, onComplete, onBack, brandOverride 
             {resultMsg}
           </span>
         ) : wrongCount > 0 && !roundDone ? (
-          <span className="header-wrong-count">✗ {wrongCount} wrong</span>
+          <LifeBar wrongCount={wrongCount} />
         ) : null}
         {/* Mobile portrait: Skip / Next in header */}
         {!gravyFail && (
