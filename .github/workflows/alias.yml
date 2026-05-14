@@ -1,0 +1,13 @@
+name: Update guessthegravy.vercel.app alias
+
+on:
+  push:
+    branches: [main]
+
+jobs:
+  alias:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Re-pin guessthegravy.vercel.app to latest production deployment
+        run: |
+          npx vercel alias set guessthegravy-brainwashed404.vercel.app guessthegravy.vercel.app --token=${{ secrets.VERCEL_TOKEN }}
