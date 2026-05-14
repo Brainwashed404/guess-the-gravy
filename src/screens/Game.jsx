@@ -224,13 +224,13 @@ export default function Game({ worldId, existingProgress, onComplete, onBack, br
       {gravyFail && <GravyFail onReveal={handleReveal} onRetry={handleRetry} />}
       <div className="game-header">
         <button className="back-btn" onClick={onBack}>QUIT</button>
-        {/* Centre slot: result when done, life bar while playing */}
+        {/* Centre slot: result when done, hint while hinting, otherwise empty */}
         {roundDone && !gravyFail && resultMsg ? (
           <span className={`header-result-msg ${skipped ? "result-skipped" : "result-correct"}`}>
             {resultMsg}
           </span>
-        ) : !roundDone ? (
-          <LifeBar wrongCount={wrongCount} />
+        ) : !roundDone && hintsUsed > 0 && getHint(brand, hintsUsed) ? (
+          <span className="header-hint-text">{getHint(brand, hintsUsed)}</span>
         ) : null}
         {/* Mobile portrait: action buttons sit in the header row */}
         {!gravyFail && (
@@ -258,19 +258,19 @@ export default function Game({ worldId, existingProgress, onComplete, onBack, br
         </div>
       </div>
 
-      {/* Hint text — own slot below energy bar so it never clashes with life bar */}
-      {!roundDone && hintsUsed > 0 && getHint(brand, hintsUsed) && (
-        <div className="hint-banner">{getHint(brand, hintsUsed)}</div>
-      )}
-
-      <div className={`image-wrap ${roundDone && !skipped ? "wiggle" : ""}`}>
-        <img
-          key={brand}
-          src={imageSrc}
-          alt="Guess the brand"
-          className={`sticker-img ${transitioning ? "spin-out" : "spin-in"}`}
-          draggable={false}
-        />
+      {/* Life bar sits to the left of the logo, stacked vertically */}
+      <div className="game-img-row">
+        <LifeBar wrongCount={wrongCount} />
+        <div className={`image-wrap ${roundDone && !skipped ? "wiggle" : ""}`}>
+          <img
+            key={brand}
+            src={imageSrc}
+            alt="Guess the brand"
+            className={`sticker-img ${transitioning ? "spin-out" : "spin-in"}`}
+            draggable={false}
+          />
+        </div>
+        <div className="life-bar-spacer" aria-hidden="true" />
       </div>
 
       <div className={`boxes-wrap ${justWrong ? "shake" : ""}`}>

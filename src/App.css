@@ -171,18 +171,6 @@
 .back-btn:active { background: var(--border); transform: scale(0.95); }
 .game-counter { font-size: 13px; font-weight: 700; color: var(--muted); }
 
-/* Hint text — sits between energy bar and image, never clashes with life bar */
-.hint-banner {
-  flex-shrink: 0;
-  text-align: center;
-  font-family: 'Bangers', system-ui, sans-serif;
-  font-size: clamp(16px, 4.5vw, 22px);
-  letter-spacing: 0.07em;
-  color: #f5c842;
-  padding: 2px 16px 4px;
-  animation: header-msg-in 0.2s cubic-bezier(0.34, 1.4, 0.64, 1) both;
-}
-
 /* ── Fighter energy bar ── */
 .energy-wrap {
   flex-shrink: 0;
@@ -273,46 +261,62 @@
   animation: header-msg-in 0.2s cubic-bezier(0.34, 1.4, 0.64, 1) both;
 }
 
-/* ── Life bar ── */
-.life-bar {
-  flex: 1;
+/* ── Life bar — vertical strip beside the logo box ── */
+.game-img-row {
   display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.life-bar {
+  display: flex;
+  flex-direction: column;   /* vertical stack */
   align-items: center;
   justify-content: center;
   gap: 8px;
+  flex-shrink: 0;
+  margin-right: 10px;
+}
+
+/* Mirror spacer keeps the logo visually centred */
+.life-bar-spacer {
+  width: 28px;   /* pip width */
+  margin-left: 10px;
+  flex-shrink: 0;
 }
 
 .life-pip {
-  display: inline-block;
+  display: block;
   width:  22px;
   height: 22px;
   border-radius: 5px;
-  background: #22c55e;          /* green = life remaining */
+  background: #22c55e;
   border: 2px solid #111;
-  transition: background 0.15s, transform 0.15s;
 }
 
-/* Lost pip — turns red and cracks in */
+/* Lost pip — turns red with a crack */
 .life-pip.life-lost {
   background: #ef4444;
   border-color: #b91c1c;
   animation: pip-crack 0.35s cubic-bezier(0.36, 0.07, 0.19, 0.97) both;
 }
 
-/* Last green pip when 2 are gone — pulses to scream danger */
+/* Last pip alive — pulses to signal imminent GravyFail */
 .life-pip.life-danger {
   animation: pip-danger 0.65s ease-in-out infinite alternate;
 }
 
 @keyframes pip-crack {
-  0%   { transform: scale(1.2) rotate(-8deg); }
+  0%   { transform: scale(1.25) rotate(-8deg); }
   40%  { transform: scale(0.75) rotate(4deg); }
-  100% { transform: scale(0.8)  rotate(0deg); }
+  100% { transform: scale(1)    rotate(0deg); }
 }
 
 @keyframes pip-danger {
-  0%   { transform: scale(1);    box-shadow: 0 0 0 0 rgba(239,68,68,0.6); }
-  100% { transform: scale(1.15); box-shadow: 0 0 0 6px rgba(239,68,68,0); }
+  0%   { transform: scale(1);    box-shadow: 0 0 0 0   rgba(239,68,68,0.7); }
+  100% { transform: scale(1.18); box-shadow: 0 0 0 6px rgba(239,68,68,0);   }
 }
 
 @keyframes header-msg-in {
@@ -1100,25 +1104,33 @@
     padding-bottom: calc(170px + env(safe-area-inset-bottom, 0px));
   }
 
-  /* Easy mode image — fixed height like jigsaw so UI never jumps on load */
+  /* game-img-row: life bar + image + spacer side by side */
+  .game-img-row {
+    margin: 6px 8px 10px;
+    align-self: stretch;
+  }
+
+  /* Easy mode image — shrinks to leave room for pip column */
   .image-wrap {
     padding: 0;
-    margin: 10px auto 16px;
-    width: calc(100vw - 32px);
+    margin: 0;
+    width: auto;
+    flex: 1;
+    min-width: 0;
     height: 40vh;
-    flex: 0 0 auto;
     display: flex;
     align-items: center;
     justify-content: center;
     overflow: hidden;
   }
 
-  /* Jigsaw: explicit square via min() so Safari can't break the aspect ratio */
+  /* Jigsaw: explicit square via min() so Safari can't break the aspect ratio.
+     Subtract pip column (~48px) from the available width. */
   .jigsaw-img-wrap {
     padding: 0;
-    margin: 10px auto 16px;
-    width:  min(38vh, calc(100vw - 32px));
-    height: min(38vh, calc(100vw - 32px));
+    margin: 0;
+    width:  min(38vh, calc(100vw - 80px));
+    height: min(38vh, calc(100vw - 80px));
     flex: 0 0 auto;
     align-self: center;
   }

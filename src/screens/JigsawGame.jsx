@@ -271,8 +271,6 @@ export default function JigsawGame({ worldId, onComplete, onBack, brandOverride 
           <span className={`header-result-msg ${correct ? "result-correct" : "result-skipped"}`}>
             {resultMsg}
           </span>
-        ) : !roundDone ? (
-          <LifeBar wrongCount={wrongCount} />
         ) : null}
         {/* Mobile portrait: Skip / Next in header */}
         {!gravyFail && (
@@ -293,8 +291,10 @@ export default function JigsawGame({ worldId, onComplete, onBack, brandOverride 
         </div>
       </div>
 
-      {/* Jigsaw image with coloured tile overlay */}
-      <div className="jigsaw-img-wrap">
+      {/* Life bar sits to the left of the jigsaw square, stacked vertically */}
+      <div className="game-img-row">
+        <LifeBar wrongCount={wrongCount} />
+        <div className="jigsaw-img-wrap">
         <div className={`jigsaw-img-inner ${roundDone && correct ? "wiggle" : ""}`}>
           <img
             key={index}
@@ -313,7 +313,9 @@ export default function JigsawGame({ worldId, onComplete, onBack, brandOverride 
             ))}
           </div>
         </div>
-      </div>
+        </div>{/* jigsaw-img-wrap */}
+        <div className="life-bar-spacer" aria-hidden="true" />
+      </div>{/* game-img-row */}
 
       {/* Letter boxes — identical to main game */}
       <div className={`boxes-wrap ${justWrong ? "shake" : ""}`}>
