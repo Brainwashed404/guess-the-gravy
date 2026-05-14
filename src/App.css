@@ -1112,25 +1112,33 @@
     align-self: stretch;
   }
 
-  /* Easy: wrapper stretches so image-wrap can use height:40vh */
+  /* Easy: wrapper is auto-sized around [pips + image] so pips sit flush
+     against the image edge — game-img-row centres the pair */
   .screen.game .img-and-lives {
-    flex: 1;
-    min-width: 0;
-    align-self: stretch;
+    flex: 0 0 auto;
   }
 
-  /* Easy mode image */
+  /* Easy mode image — auto-width so the box matches the image's natural
+     proportions at 40vh tall; max-width stops it overflowing narrow screens */
   .image-wrap {
     padding: 0;
     margin: 0;
+    flex: 0 0 auto;
     width: auto;
-    flex: 1;
-    min-width: 0;
+    max-width: calc(100vw - 80px);
     height: 40vh;
     display: flex;
     align-items: center;
     justify-content: center;
     overflow: hidden;
+  }
+
+  /* Sticker fills the container height so image-wrap can derive its width
+     from the image's natural aspect ratio */
+  .sticker-img {
+    height: 100%;
+    width: auto;
+    max-width: 100%;
   }
 
   /* Jigsaw: explicit square via min() so Safari can't break the aspect ratio.
