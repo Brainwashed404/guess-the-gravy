@@ -249,6 +249,18 @@
 .header-result-msg.result-correct { color: #22c55e; }
 .header-result-msg.result-skipped { color: var(--muted); }
 
+/* Hint text shown in header centre after first hint is used */
+.header-hint-text {
+  flex: 1;
+  text-align: center;
+  font-family: 'Bangers', system-ui, sans-serif;
+  font-size: clamp(15px, 4.5vw, 20px);
+  letter-spacing: 0.06em;
+  color: #f5c842;
+  padding: 0 6px;
+  animation: header-msg-in 0.2s cubic-bezier(0.34, 1.4, 0.64, 1) both;
+}
+
 /* Wrong count shown in header centre while a round is in progress */
 .header-wrong-count {
   flex: 1;
@@ -702,23 +714,36 @@
   border-radius: inherit;
 }
 
-/* Retro top-down wipe — brown floods in from the top like a classic game transition */
+/* Thin drip fingers drop first, creating an ooze-leading-edge effect */
+.poo-drip {
+  position: absolute;
+  top: 0;
+  height: 105%;
+  background: #3B1800;
+  border-radius: 0 0 55% 55% / 0 0 70% 70%;  /* rounded drip tip */
+  transform: translateY(-105%);
+  animation: ooze-fall 0.32s ease-in forwards;
+  pointer-events: none;
+}
+
+/* Main fill chases the drips and swallows everything */
 .poo-wipe {
   position: absolute;
   inset: 0;
   background: #3B1800;
-  transform-origin: top center;
-  transform: scaleY(0);
-  animation: gravy-wipe 0.38s cubic-bezier(0.4, 0, 0.15, 1) forwards;
+  transform: translateY(-100%);
+  animation: ooze-fall 0.42s ease-in forwards;
+  animation-delay: 0.07s;
   pointer-events: none;
 }
-@keyframes gravy-wipe {
-  0%   { transform: scaleY(0); }
-  78%  { transform: scaleY(1.03); }  /* slight slop overshoot */
-  100% { transform: scaleY(1); }
+
+@keyframes ooze-fall {
+  0%   { transform: translateY(-105%); }
+  85%  { transform: translateY(2%); }   /* tiny splat overshoot */
+  100% { transform: translateY(0); }
 }
 
-/* 💩 + sassy message + buttons — appear after the wipe lands */
+/* 💩 + sassy message + buttons — pop in once the ooze has settled */
 .gravy-fail-msg {
   position: absolute;
   inset: 0;
@@ -729,7 +754,7 @@
   gap: 16px;
   opacity: 0;
   animation: poo-msg-pop 0.35s cubic-bezier(0.34, 1.4, 0.64, 1) forwards;
-  animation-delay: 0.32s;
+  animation-delay: 0.45s;
 }
 @keyframes poo-msg-pop {
   0%   { opacity: 0; transform: scale(0.75); }

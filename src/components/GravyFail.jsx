@@ -1,4 +1,17 @@
-import { useMemo } from "react";
+import { useMemo, memo } from "react";
+
+// Fixed drip positions — no random needed, these always look good
+const DRIPS = [
+  { left: '3%',  w: 32, delay: '0s'     },
+  { left: '13%', w: 20, delay: '0.02s'  },
+  { left: '24%', w: 40, delay: '0.005s' },
+  { left: '36%', w: 24, delay: '0.035s' },
+  { left: '48%', w: 46, delay: '0s'     },
+  { left: '60%', w: 28, delay: '0.025s' },
+  { left: '71%', w: 38, delay: '0.01s'  },
+  { left: '82%', w: 22, delay: '0.03s'  },
+  { left: '91%', w: 34, delay: '0.015s' },
+];
 
 const SASSY = [
   "ABSOLUTELY DIRE",
@@ -52,7 +65,15 @@ export default function GravyFail({ onReveal, onRetry }) {
 
   return (
     <div className="gravy-fail">
-      {/* Retro top-down wipe */}
+      {/* Drip fingers lead the main fill — ooze effect */}
+      {DRIPS.map((d, i) => (
+        <div
+          key={i}
+          className="poo-drip"
+          style={{ left: d.left, width: d.w, animationDelay: d.delay }}
+        />
+      ))}
+      {/* Main fill follows behind the drips */}
       <div className="poo-wipe" />
 
       {/* Poo + sassy message + buttons */}

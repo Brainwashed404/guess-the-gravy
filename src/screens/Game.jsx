@@ -1,6 +1,7 @@
 import { useState, useEffect, useCallback } from "react";
 import { CATEGORIES } from "../data/categories";
 import { getAnswer, getUniqueLetters, sortedBrands, calcStars } from "../data/gameUtils";
+import { getHint } from "../data/brandHints";
 import {
   soundCorrectLetter, soundWrongLetter, soundComplete,
   soundSkip, soundWhoosh,
@@ -222,11 +223,13 @@ export default function Game({ worldId, existingProgress, onComplete, onBack, br
       {gravyFail && <GravyFail onReveal={handleReveal} onRetry={handleRetry} />}
       <div className="game-header">
         <button className="back-btn" onClick={onBack}>QUIT</button>
-        {/* Centre slot: wrong count while playing, result badge after round */}
+        {/* Centre slot: result → hint text → wrong count */}
         {roundDone && !gravyFail && resultMsg ? (
           <span className={`header-result-msg ${skipped ? "result-skipped" : "result-correct"}`}>
             {resultMsg}
           </span>
+        ) : !roundDone && hintsUsed > 0 && getHint(brand) ? (
+          <span className="header-hint-text">{getHint(brand)}</span>
         ) : wrongCount > 0 && !roundDone ? (
           <span className="header-wrong-count">✗ {wrongCount} wrong</span>
         ) : null}
