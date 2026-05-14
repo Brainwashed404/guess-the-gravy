@@ -103,7 +103,6 @@ export const BRAND_HINTS = {
   "CORONA EXTRA":        ["Lime Ritual",              "Beach Beer"],
   "HAVANA CLUB":         ["Cuban Rum",               "Mojito Base"],
   "JIM BEAM":            ["Kentucky Bourbon",         "Seven Generations"],
-  "JIM BEAN":            ["Kentucky Bourbon",          "Seven Generations"],
   "JOSE CUERVO":         ["Since 1795",               "Tequila OG"],
   "KRONENBOURG":         ["1664",                    "Alsatian Lager"],
   "LEFFE":               ["Belgian Abbey Ale",        "Trappist Tradition"],

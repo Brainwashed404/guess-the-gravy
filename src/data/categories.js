@@ -4,7 +4,6 @@ export const ALIASES = {
   "DUCATI CLASSIC":    "DUCATI",
   "DORITOS CLASSIC":   "DORITOS",
   "BEN AND JERRY'S":   "BEN AND JERRY'S",
-  "JIM BEAN":          "JIM BEAM",
 };
 
 export const CATEGORIES = [
@@ -51,7 +50,7 @@ export const CATEGORIES = [
       "PEPSI", "PERRIER", "RED BULL", "SCHWEPPES", "SLUSH PUPPIE", "SNAPPLE", "SPRITE",
       // Booze
       "ABSOLUT", "BELL'S", "CARLSBERG", "CORONA EXTRA", "HAVANA CLUB",
-      "JIM BEAN", "JOSE CUERVO", "KRONENBOURG", "LEFFE", "MALIBU",
+      "JIM BEAM", "JOSE CUERVO", "KRONENBOURG", "LEFFE", "MALIBU",
       "MARLBORO", "STELLA ARTOIS",
     ],
   },
