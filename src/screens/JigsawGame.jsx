@@ -313,30 +313,31 @@ export default function JigsawGame({ worldId, onComplete, onBack, brandOverride 
         </div>
       </div>
 
-      {/* Life bar sits to the left of the jigsaw square, stacked vertically */}
+      {/* Life bar flush against the left edge of the jigsaw square */}
       <div className="game-img-row">
-        <LifeBar wrongCount={wrongCount} />
-        <div className="jigsaw-img-wrap">
-        <div className={`jigsaw-img-inner ${roundDone && correct ? "wiggle" : ""}`}>
-          <img
-            key={index}
-            src={imageSrc}
-            alt="Guess the brand"
-            className={`jigsaw-img ${transitioning ? "spin-out" : "spin-in"}`}
-            draggable={false}
-          />
-          <div className="jigsaw-grid">
-            {Array.from({ length: TOTAL }, (_, i) => (
-              <div
-                key={i}
-                className={`jigsaw-piece ${revealedSet.has(i) ? "revealed" : ""}`}
-                style={{ background: pieceColor }}
+        <div className="img-and-lives">
+          <LifeBar wrongCount={wrongCount} />
+          <div className="jigsaw-img-wrap">
+            <div className={`jigsaw-img-inner ${roundDone && correct ? "wiggle" : ""}`}>
+              <img
+                key={index}
+                src={imageSrc}
+                alt="Guess the brand"
+                className={`jigsaw-img ${transitioning ? "spin-out" : "spin-in"}`}
+                draggable={false}
               />
-            ))}
-          </div>
-        </div>
-        </div>{/* jigsaw-img-wrap */}
-        <div className="life-bar-spacer" aria-hidden="true" />
+              <div className="jigsaw-grid">
+                {Array.from({ length: TOTAL }, (_, i) => (
+                  <div
+                    key={i}
+                    className={`jigsaw-piece ${revealedSet.has(i) ? "revealed" : ""}`}
+                    style={{ background: pieceColor }}
+                  />
+                ))}
+              </div>
+            </div>
+          </div>{/* jigsaw-img-wrap */}
+        </div>{/* img-and-lives */}
       </div>{/* game-img-row */}
 
       {/* Letter boxes — identical to main game */}

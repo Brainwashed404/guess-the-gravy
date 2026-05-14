@@ -263,7 +263,6 @@
 
 /* ── Life bar — vertical strip pinned to left of the image area ── */
 .game-img-row {
-  position: relative;        /* life-bar anchors to this */
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -271,20 +270,23 @@
   flex-shrink: 0;
 }
 
-/* Absolutely positioned so it never affects image centering or sizing */
+/* Wrapper: keeps life pips flush against the left edge of the image box */
+.img-and-lives {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 8px;
+}
+
+/* Life bar: normal flex child, always directly left of the image */
 .life-bar {
-  position: absolute;
-  left: 8px;
-  top: 50%;
-  transform: translateY(-50%);
+  flex-shrink: 0;
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: 8px;
-  z-index: 1;
 }
 
-/* Spacer no longer needed — life bar is out of flex flow */
 .life-bar-spacer { display: none; }
 
 .life-pip {
@@ -1104,13 +1106,20 @@
     padding-bottom: calc(170px + env(safe-area-inset-bottom, 0px));
   }
 
-  /* game-img-row: life bar + image + spacer side by side */
+  /* game-img-row: centres the img-and-lives wrapper */
   .game-img-row {
     margin: 6px 8px 10px;
     align-self: stretch;
   }
 
-  /* Easy mode image — shrinks to leave room for pip column */
+  /* Easy: wrapper stretches so image-wrap can use height:40vh */
+  .screen.game .img-and-lives {
+    flex: 1;
+    min-width: 0;
+    align-self: stretch;
+  }
+
+  /* Easy mode image */
   .image-wrap {
     padding: 0;
     margin: 0;
@@ -1223,8 +1232,7 @@
   /* Hide the in-body action-msg — it's now in the header */
   .action-msg { display: none; }
 
-  /* game-img-row takes the vertical space the old image-wrap occupied in the
-     screen column; its children (image + life pips) size within that space */
+  /* game-img-row takes the vertical space; img-and-lives fills it */
   .game-img-row {
     flex: 1;
     min-height: 0;
@@ -1232,7 +1240,14 @@
     align-items: center;
   }
 
-  /* Easy: image-wrap fills the row height, image scales inside it */
+  /* Easy: wrapper fills the vertical slot so image-wrap can use height:100% */
+  .screen.game .img-and-lives {
+    flex: 1;
+    min-height: 0;
+    align-self: stretch;
+  }
+
+  /* Easy: image-wrap fills the wrapper height, image scales inside it */
   .screen.game .image-wrap {
     height: 100%;
     flex: 1;

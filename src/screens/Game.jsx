@@ -259,19 +259,20 @@ export default function Game({ worldId, existingProgress, onComplete, onBack, br
         </div>
       </div>
 
-      {/* Life bar sits to the left of the logo, stacked vertically */}
+      {/* Life bar flush against the left edge of the image box */}
       <div className="game-img-row">
-        <LifeBar wrongCount={wrongCount} />
-        <div className={`image-wrap ${roundDone && !skipped ? "wiggle" : ""}`}>
-          <img
-            key={brand}
-            src={imageSrc}
-            alt="Guess the brand"
-            className={`sticker-img ${transitioning ? "spin-out" : "spin-in"}`}
-            draggable={false}
-          />
+        <div className="img-and-lives">
+          <LifeBar wrongCount={wrongCount} />
+          <div className={`image-wrap ${roundDone && !skipped ? "wiggle" : ""}`}>
+            <img
+              key={brand}
+              src={imageSrc}
+              alt="Guess the brand"
+              className={`sticker-img ${transitioning ? "spin-out" : "spin-in"}`}
+              draggable={false}
+            />
+          </div>
         </div>
-        <div className="life-bar-spacer" aria-hidden="true" />
       </div>
 
       <div className={`boxes-wrap ${justWrong ? "shake" : ""}`}>
