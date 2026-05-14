@@ -1218,10 +1218,12 @@
   .header-result-msg,
   .header-hint-text {
     position: absolute;
-    left: 50%;
-    transform: translateX(-50%);
+    left: 0;
+    right: 0;
+    text-align: center;
+    pointer-events: none;
     flex: none;
-    max-width: 60%;
+    max-width: 100%;
   }
 
   /* On desktop the desktop-actions panel already shows Next — hide the
