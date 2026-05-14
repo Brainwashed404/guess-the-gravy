@@ -222,11 +222,14 @@ export default function Game({ worldId, existingProgress, onComplete, onBack, br
       {gravyFail && <GravyFail onReveal={handleReveal} onRetry={handleRetry} />}
       <div className="game-header">
         <button className="back-btn" onClick={onBack}>QUIT</button>
-        {roundDone && !gravyFail && resultMsg && (
+        {/* Centre slot: wrong count while playing, result badge after round */}
+        {roundDone && !gravyFail && resultMsg ? (
           <span className={`header-result-msg ${skipped ? "result-skipped" : "result-correct"}`}>
             {resultMsg}
           </span>
-        )}
+        ) : wrongCount > 0 && !roundDone ? (
+          <span className="header-wrong-count">✗ {wrongCount} wrong</span>
+        ) : null}
         {/* Mobile portrait: action buttons sit in the header row */}
         {!gravyFail && (
           <div className="mobile-actions">
@@ -265,9 +268,6 @@ export default function Game({ worldId, existingProgress, onComplete, onBack, br
 
       <div className={`boxes-wrap ${justWrong ? "shake" : ""}`}>
         <LetterBoxes answer={answer} guessed={guessed} revealed={(skipped || roundDone) && !gravyFail} correct={((!skipped && roundDone) || wasRevealed) && !gravyFail} />
-        {wrongCount > 0 && !roundDone && (
-          <p className="wrong-count">✗ {wrongCount} wrong</p>
-        )}
       </div>
 
       <Keyboard

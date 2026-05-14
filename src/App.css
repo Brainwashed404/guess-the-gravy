@@ -248,6 +248,17 @@
 }
 .header-result-msg.result-correct { color: #22c55e; }
 .header-result-msg.result-skipped { color: var(--muted); }
+
+/* Wrong count shown in header centre while a round is in progress */
+.header-wrong-count {
+  flex: 1;
+  text-align: center;
+  font-family: 'Bangers', system-ui, sans-serif;
+  font-size: clamp(14px, 4vw, 18px);
+  letter-spacing: 0.05em;
+  color: #ef4444;
+  padding: 0 6px;
+}
 @keyframes header-msg-in {
   0%   { opacity: 0; transform: scale(0.7); }
   100% { opacity: 1; transform: scale(1); }
@@ -1082,20 +1093,19 @@
     max-height: 100%;
   }
 
-  /* Sliding game: same explicit-square treatment, larger since no keyboard */
+  /* Sliding game: flex:1 so wrap fills remaining space and centres the grid */
   .slide-wrap {
-    flex: 0 0 auto;
-    padding: 10px 16px 16px;
-    align-self: center;
-    width: 100%;
+    flex: 1;
+    padding: 8px 16px;
+    align-self: stretch;
     display: flex;
     align-items: center;
     justify-content: center;
   }
+  /* Explicit square so Safari can't stretch it */
   .slide-grid {
     width:  min(52vh, calc(100vw - 32px));
     height: min(52vh, calc(100vw - 32px));
-    /* aspect-ratio: 1 still set in base — this makes it explicit */
   }
 
   /* Letter boxes — add top gap so they breathe below the image */
