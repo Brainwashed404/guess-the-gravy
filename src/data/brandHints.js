@@ -128,7 +128,7 @@ export const BRAND_HINTS = {
   "ODD FUTURE":          ["Golf Wang",               "Tyler's Crew"],
   "PUBLIC ENEMY":        ["Fight The Power",          "Chuck D's Group"],
   "RUN DMC":             ["Shell Toes",              "It's Tricky"],
-  "SOUNDCLOUD":          ["Upload Overnight",         "Where Rappers Started"],
+  "SOUNDCLOUD":          ["Upload Overnight",         "Post Malone's Launchpad"],
   "SPOTIFY":             ["Discover Weekly",          "Wrapped Season"],
   "SUB POP":             ["Grunge Label",             "Where Nirvana Started"],
   "TOMMY BOY":           ["Funky Drummer Label",      "De La Soul's Home"],
