@@ -200,6 +200,14 @@ export default function SlidingGame({ worldId, onComplete, onBack, brandOverride
     }, 200);
   }, [skipped, moves, brandStars, index, queue.length, onComplete, worldId]);
 
+  // Auto-advance after solving (2 s so the player can see the completed puzzle)
+  useEffect(() => {
+    if (roundDone && !skipped) {
+      const t = setTimeout(() => handleNext(), 2000);
+      return () => clearTimeout(t);
+    }
+  }, [roundDone, skipped, handleNext]);
+
   useEffect(() => {
     const handler = (e) => {
       if (e.key === "Enter" && roundDone) handleNext();
@@ -287,7 +295,7 @@ export default function SlidingGame({ worldId, onComplete, onBack, brandOverride
         <button className="back-btn" onClick={onBack}>QUIT</button>
         {/* Centre: brand name revealed when round ends */}
         {roundDone && (
-          <span className={`header-result-msg ${skipped ? "result-skipped" : "result-correct"}`}>
+          <span className="header-result-msg result-correct">
             {answer}
           </span>
         )}

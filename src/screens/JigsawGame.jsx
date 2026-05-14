@@ -266,11 +266,13 @@ export default function JigsawGame({ worldId, onComplete, onBack, brandOverride 
       {gravyFail && <GravyFail onReveal={handleReveal} onRetry={handleRetry} />}
       <div className="game-header">
         <button className="back-btn" onClick={() => { stopTimer(); onBack(); }}>QUIT</button>
-        {roundDone && !gravyFail && resultMsg && (
+        {roundDone && !gravyFail && resultMsg ? (
           <span className={`header-result-msg ${correct ? "result-correct" : "result-skipped"}`}>
             {resultMsg}
           </span>
-        )}
+        ) : wrongCount > 0 && !roundDone ? (
+          <span className="header-wrong-count">✗ {wrongCount} wrong</span>
+        ) : null}
         {/* Mobile portrait: Skip / Next in header */}
         {!gravyFail && (
           <div className="mobile-actions">
@@ -315,10 +317,7 @@ export default function JigsawGame({ worldId, onComplete, onBack, brandOverride 
       {/* Letter boxes — identical to main game */}
       <div className={`boxes-wrap ${justWrong ? "shake" : ""}`}>
         <LetterBoxes answer={answer} guessed={guessed} revealed={roundDone && !gravyFail} correct={(correct || wasRevealed) && !gravyFail} />
-        {wrongCount > 0 && !roundDone && (
-          <p className="wrong-count">✗ {wrongCount} wrong</p>
-        )}
-      </div>
+        </div>
 
       <Keyboard
         onGuess={handleGuess}
