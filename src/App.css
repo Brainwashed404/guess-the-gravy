@@ -1058,10 +1058,16 @@
   }
   .jigsaw-img-wrap {
     padding: 6px 16px 4px;
-    /* Definite height so jigsaw-img-inner's max-height:100% resolves correctly */
+    /* Definite height so jigsaw-img-inner can resolve to a square */
     height: 38vh;
     max-height: 38vh;
     flex: 0 0 auto;
+  }
+  /* Drive the square off height, not width, so it never exceeds the wrap */
+  .jigsaw-img-inner {
+    height: 100%;
+    width: auto;
+    max-width: 100%;
   }
 
   /* Letter boxes — auto height so wrong-count is never clipped */
