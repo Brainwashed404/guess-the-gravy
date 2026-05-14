@@ -714,32 +714,32 @@
   border-radius: inherit;
 }
 
-/* Thin drip fingers drop first, creating an ooze-leading-edge effect */
+/* Wide smooth blobs drop first to create a wavy leading edge */
 .poo-drip {
   position: absolute;
   top: 0;
-  height: 105%;
+  height: 115%;
   background: #3B1800;
-  border-radius: 0 0 55% 55% / 0 0 70% 70%;  /* rounded drip tip */
-  transform: translateY(-105%);
-  animation: ooze-fall 0.32s ease-in forwards;
+  border-radius: 0 0 50% 50% / 0 0 55% 55%;  /* wide smooth blob tip */
+  transform: translateY(-115%);
+  animation: ooze-fall 0.75s cubic-bezier(0.4, 0, 0.7, 1) forwards;
   pointer-events: none;
 }
 
-/* Main fill chases the drips and swallows everything */
+/* Main fill chases the blobs and swallows everything */
 .poo-wipe {
   position: absolute;
   inset: 0;
   background: #3B1800;
   transform: translateY(-100%);
-  animation: ooze-fall 0.42s ease-in forwards;
-  animation-delay: 0.07s;
+  animation: ooze-fall 0.95s cubic-bezier(0.4, 0, 0.7, 1) forwards;
+  animation-delay: 0.12s;
   pointer-events: none;
 }
 
 @keyframes ooze-fall {
-  0%   { transform: translateY(-105%); }
-  85%  { transform: translateY(2%); }   /* tiny splat overshoot */
+  0%   { transform: translateY(-115%); }
+  80%  { transform: translateY(3%); }   /* slight splat overshoot */
   100% { transform: translateY(0); }
 }
 
@@ -754,7 +754,7 @@
   gap: 16px;
   opacity: 0;
   animation: poo-msg-pop 0.35s cubic-bezier(0.34, 1.4, 0.64, 1) forwards;
-  animation-delay: 0.45s;
+  animation-delay: 0.95s;
 }
 @keyframes poo-msg-pop {
   0%   { opacity: 0; transform: scale(0.75); }
@@ -1127,6 +1127,10 @@
 @media (min-width: 769px) {
   /* Hide mobile header buttons */
   .mobile-actions { display: none; }
+
+  /* QUIT always top-right — push it after center content via order */
+  .game-header { justify-content: flex-start; }
+  .back-btn    { order: 99; margin-left: auto; }
 
   /* Show desktop action buttons */
   .desktop-actions {

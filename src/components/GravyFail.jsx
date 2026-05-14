@@ -1,16 +1,12 @@
 import { useMemo, memo } from "react";
 
-// Fixed drip positions — no random needed, these always look good
+// Wide smooth blobs that overlap to create a wavy leading edge
 const DRIPS = [
-  { left: '3%',  w: 32, delay: '0s'     },
-  { left: '13%', w: 20, delay: '0.02s'  },
-  { left: '24%', w: 40, delay: '0.005s' },
-  { left: '36%', w: 24, delay: '0.035s' },
-  { left: '48%', w: 46, delay: '0s'     },
-  { left: '60%', w: 28, delay: '0.025s' },
-  { left: '71%', w: 38, delay: '0.01s'  },
-  { left: '82%', w: 22, delay: '0.03s'  },
-  { left: '91%', w: 34, delay: '0.015s' },
+  { left: '-6%', w: '44%', delay: '0s'    },
+  { left: '22%', w: '42%', delay: '0.07s' },
+  { left: '46%', w: '46%', delay: '0.02s' },
+  { left: '66%', w: '40%', delay: '0.09s' },
+  { left: '84%', w: '36%', delay: '0.04s' },
 ];
 
 const SASSY = [
