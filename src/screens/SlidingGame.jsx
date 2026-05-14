@@ -314,9 +314,11 @@ export default function SlidingGame({ worldId, onComplete, onBack, brandOverride
       </div>
 
       <div className="action-area">
-        <p className={`action-msg ${roundDone ? (skipped ? "skipped-msg" : "correct-msg") : "slide-moves-msg"}`}>
-          {roundDone ? (resultMsg || "·") : `${moves} moves`}
-        </p>
+        {roundDone && (
+          <p className={`action-msg ${skipped ? "skipped-msg" : "correct-msg"}`}>
+            {resultMsg || "·"}
+          </p>
+        )}
         {roundDone ? (
           <button className="btn-action btn-next" onClick={handleNext}>
             {index + 1 < queue.length ? "Next →" : "Finish 🏁"}
