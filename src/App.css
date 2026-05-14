@@ -261,7 +261,7 @@
   animation: header-msg-in 0.2s cubic-bezier(0.34, 1.4, 0.64, 1) both;
 }
 
-/* ── Life bar — vertical strip pinned to left of the image area ── */
+/* ── Life bar — pinned outside the left edge of the image frame ── */
 .game-img-row {
   display: flex;
   flex-direction: row;
@@ -270,21 +270,27 @@
   flex-shrink: 0;
 }
 
-/* Wrapper: keeps life pips flush against the left edge of the image box */
-.img-and-lives {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  gap: 8px;
+/* Thin shell that sizes exactly to the image container.
+   position:relative lets the life bar anchor to it;
+   overflow:visible lets the pips spill outside its left edge. */
+.img-frame {
+  position: relative;
+  overflow: visible;
+  flex-shrink: 0;
 }
 
-/* Life bar: normal flex child, always directly left of the image */
+/* Pips are out of flow — they hang off the left of img-frame
+   so they can never push the image off-centre. */
 .life-bar {
-  flex-shrink: 0;
+  position: absolute;
+  right: calc(100% + 8px);
+  top: 50%;
+  transform: translateY(-50%);
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: 8px;
+  z-index: 1;
 }
 
 .life-bar-spacer { display: none; }
@@ -1106,50 +1112,49 @@
     padding-bottom: calc(170px + env(safe-area-inset-bottom, 0px));
   }
 
-  /* game-img-row: centres the img-and-lives wrapper */
+  /* game-img-row: centres img-frame; pips hang off left — out of flow */
   .game-img-row {
     margin: 6px 8px 10px;
     align-self: stretch;
   }
 
-  /* Easy: wrapper is auto-sized around [pips + image] so pips sit flush
-     against the image edge — game-img-row centres the pair */
-  .screen.game .img-and-lives {
-    flex: 0 0 auto;
+  /* Easy: img-frame is an explicit square — same formula as jigsaw so pips
+     are always the same distance from the edge. image-wrap fills it 100%. */
+  .screen.game .img-frame {
+    width:  min(40vh, calc(100vw - 80px));
+    height: min(40vh, calc(100vw - 80px));
   }
-
-  /* Easy mode image — auto-width so the box matches the image's natural
-     proportions at 40vh tall; max-width stops it overflowing narrow screens */
-  .image-wrap {
+  .screen.game .image-wrap {
+    width: 100%;
+    height: 100%;
     padding: 0;
     margin: 0;
-    flex: 0 0 auto;
-    width: auto;
-    max-width: calc(100vw - 80px);
-    height: 40vh;
+    overflow: hidden;
     display: flex;
     align-items: center;
     justify-content: center;
-    overflow: hidden;
   }
-
-  /* Sticker fills the container height so image-wrap can derive its width
-     from the image's natural aspect ratio */
   .sticker-img {
-    height: 100%;
-    width: auto;
     max-width: 100%;
+    max-height: 100%;
+    width: auto;
+    height: auto;
   }
 
-  /* Jigsaw: explicit square via min() so Safari can't break the aspect ratio.
-     Subtract pip column (~48px) from the available width. */
-  .jigsaw-img-wrap {
-    padding: 0;
-    margin: 0;
+  /* Jigsaw: img-frame is the explicit square; jigsaw-img-wrap fills it. */
+  .screen.jigsaw-game .img-frame {
     width:  min(38vh, calc(100vw - 80px));
     height: min(38vh, calc(100vw - 80px));
-    flex: 0 0 auto;
-    align-self: center;
+  }
+  .jigsaw-img-wrap {
+    width: 100%;
+    height: 100%;
+    padding: 0;
+    margin: 0;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
   .jigsaw-img-inner {
     width: 100%;
@@ -1240,7 +1245,7 @@
   /* Hide the in-body action-msg — it's now in the header */
   .action-msg { display: none; }
 
-  /* game-img-row takes the vertical space; img-and-lives fills it */
+  /* game-img-row takes the vertical space and centres img-frame */
   .game-img-row {
     flex: 1;
     min-height: 0;
@@ -1248,36 +1253,43 @@
     align-items: center;
   }
 
-  /* Easy: wrapper fills the vertical slot so image-wrap can use height:100% */
-  .screen.game .img-and-lives {
-    flex: 1;
-    min-height: 0;
-    align-self: stretch;
+  /* Easy: img-frame is a square that fills the available height.
+     Pips hang off its left edge absolutely — no effect on centering. */
+  .screen.game .img-frame {
+    height: min(52vh, 50vw);
+    width:  min(52vh, 50vw);
   }
-
-  /* Easy: image-wrap fills the wrapper height, image scales inside it */
   .screen.game .image-wrap {
+    width: 100%;
     height: 100%;
-    flex: 1;
-    min-height: 0;
     padding: 0;
     margin: 0;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
 
-  /* Jigsaw: game-img-row centres the fixed square, doesn't stretch it */
+  /* Jigsaw: game-img-row centres the fixed square */
   .screen.jigsaw-game .game-img-row {
     flex: 0 0 auto;
     padding: 20px 20px 8px;
   }
 
-  /* Jigsaw: keep the image area a proper square on wide viewports */
-  .jigsaw-img-wrap {
-    padding: 0;
-    margin: 0;
+  /* Jigsaw: img-frame is the explicit square; children fill it */
+  .screen.jigsaw-game .img-frame {
     width:  min(52vh, 50vw);
     height: min(52vh, 50vw);
-    flex: 0 0 auto;
-    align-self: center;
+  }
+  .jigsaw-img-wrap {
+    width: 100%;
+    height: 100%;
+    padding: 0;
+    margin: 0;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
   .jigsaw-img-inner {
     width: 100%;

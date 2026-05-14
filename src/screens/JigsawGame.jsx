@@ -313,9 +313,8 @@ export default function JigsawGame({ worldId, onComplete, onBack, brandOverride 
         </div>
       </div>
 
-      {/* Life bar flush against the left edge of the jigsaw square */}
       <div className="game-img-row">
-        <div className="img-and-lives">
+        <div className="img-frame">
           <LifeBar wrongCount={wrongCount} />
           <div className="jigsaw-img-wrap">
             <div className={`jigsaw-img-inner ${roundDone && correct ? "wiggle" : ""}`}>
@@ -337,7 +336,7 @@ export default function JigsawGame({ worldId, onComplete, onBack, brandOverride 
               </div>
             </div>
           </div>{/* jigsaw-img-wrap */}
-        </div>{/* img-and-lives */}
+        </div>{/* img-frame */}
       </div>{/* game-img-row */}
 
       {/* Letter boxes — identical to main game */}

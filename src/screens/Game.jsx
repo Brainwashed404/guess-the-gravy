@@ -259,9 +259,8 @@ export default function Game({ worldId, existingProgress, onComplete, onBack, br
         </div>
       </div>
 
-      {/* Life bar flush against the left edge of the image box */}
       <div className="game-img-row">
-        <div className="img-and-lives">
+        <div className="img-frame">
           <LifeBar wrongCount={wrongCount} />
           <div className={`image-wrap ${roundDone && !skipped ? "wiggle" : ""}`}>
             <img
