@@ -1183,9 +1183,48 @@
 
   /* Constrain the whole game column so it doesn't sprawl on ultrawide monitors */
   .screen {
-    max-width: 900px;
+    max-width: 960px;
     margin: 0 auto;
   }
+
+  /* ── Title screen ── */
+  .ts-inner {
+    max-width: 760px;
+    gap: 32px;
+    padding: 40px 48px;
+  }
+  .ts-logo {
+    width: min(55vw, 540px);
+  }
+  .ts-subtitle {
+    font-size: 24px;
+  }
+  /* Three mode buttons side-by-side on desktop */
+  .ts-modes {
+    flex-direction: row;
+    gap: 16px;
+  }
+  .ts-mode-btn {
+    flex: 1;
+    padding: 28px 12px;
+    font-size: 28px;
+  }
+
+  /* ── World select: 5 columns × 2 rows ── */
+  .ws-grid {
+    grid-template-columns: repeat(5, 1fr);
+    grid-template-rows: repeat(2, 1fr);
+    gap: 12px;
+    padding: 32px 24px;
+    max-width: 960px;
+    margin: 0 auto;
+  }
+  .ws-card {
+    padding: 20px 12px;
+    border-radius: 20px;
+  }
+  .ws-emoji { font-size: 44px; }
+  .ws-name  { font-size: 15px; }
 }
 
 /* ═══════════════════════════════════════
