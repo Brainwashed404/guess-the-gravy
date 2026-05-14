@@ -275,9 +275,7 @@ export default function JigsawGame({ worldId, onComplete, onBack, brandOverride 
               <button className="header-btn header-btn-next" onClick={handleNext}>
                 {index + 1 < queue.length ? "Next →" : "Finish 🏁"}
               </button>
-            ) : (
-              <button className="header-btn header-btn-skip" onClick={handleSkip}>Skip</button>
-            )}
+            ) : null}
           </div>
         )}
       </div>
@@ -340,9 +338,7 @@ export default function JigsawGame({ worldId, onComplete, onBack, brandOverride 
             <button className="btn-action btn-next" onClick={handleNext}>
               {index + 1 < queue.length ? "Next →" : "Finish 🏁"}
             </button>
-          ) : (
-            <button className="btn-action btn-skip" onClick={handleSkip}>Skip</button>
-          )}
+          ) : null}
         </div>
       </div>
     </div>

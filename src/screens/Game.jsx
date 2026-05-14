@@ -232,12 +232,9 @@ export default function Game({ worldId, existingProgress, onComplete, onBack, br
                 {index + 1 < queue.length ? "Next →" : "Finish 🏁"}
               </button>
             ) : (
-              <>
-                <button className={`header-btn header-btn-hint header-btn-hint-${2 - hintsUsed}`} onClick={handleHint}>
-                  Hint ({2 - hintsUsed})
-                </button>
-                <button className="header-btn header-btn-skip" onClick={handleSkip}>Skip</button>
-              </>
+              <button className={`header-btn header-btn-hint header-btn-hint-${2 - hintsUsed}`} onClick={handleHint}>
+                Hint ({2 - hintsUsed})
+              </button>
             )}
           </div>
         )}
@@ -291,12 +288,9 @@ export default function Game({ worldId, existingProgress, onComplete, onBack, br
               {index + 1 < queue.length ? "Next →" : "Finish 🏁"}
             </button>
           ) : (
-            <div className="round-btns">
-              <button className={`btn-action btn-hint btn-hint-${2 - hintsUsed}`} onClick={handleHint}>
-                Hint ({2 - hintsUsed})
-              </button>
-              <button className="btn-action btn-skip" onClick={handleSkip}>Skip</button>
-            </div>
+            <button className={`btn-action btn-hint btn-hint-${2 - hintsUsed}`} onClick={handleHint}>
+              Hint ({2 - hintsUsed})
+            </button>
           )}
         </div>
       </div>
