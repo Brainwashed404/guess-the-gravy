@@ -7,7 +7,16 @@ function getCtx() {
 }
 
 function play(fn) {
-  try { fn(getCtx()); } catch (e) { /* silent fail */ }
+  try {
+    const ctx = getCtx();
+    // iOS Safari starts AudioContext suspended — resume() must be called
+    // inside a user-gesture handler before any sound will play
+    if (ctx.state === "suspended") {
+      ctx.resume().then(() => fn(ctx));
+    } else {
+      fn(ctx);
+    }
+  } catch (e) { /* silent fail */ }
 }
 
 // Quick satisfying bloop when a correct letter lands
