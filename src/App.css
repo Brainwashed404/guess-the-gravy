@@ -1157,7 +1157,7 @@
   /* Jigsaw: keep the image area a proper square on wide viewports */
   .jigsaw-img-wrap {
     padding: 0;
-    margin: 0 auto 8px;
+    margin: 24px auto 16px;
     width:  min(52vh, 50vw);
     height: min(52vh, 50vw);
     flex: 0 0 auto;
