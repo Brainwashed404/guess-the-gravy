@@ -1,7 +1,5 @@
 import { useMemo } from "react";
 
-const RNG = (min, max) => Math.random() * (max - min) + min;
-
 const SASSY = [
   "ABSOLUTELY DIRE",
   "SHOCKINGLY BAD",
@@ -40,7 +38,7 @@ const SASSY = [
   "OH DEAR, OH DEAR",
 ];
 
-// Module-level queue — persists across mounts so no message repeats until all 35 are seen
+// Module-level queue — persists across mounts so no message repeats until all are seen
 let _queue = [];
 function pickMessage() {
   if (_queue.length === 0) {
@@ -49,81 +47,15 @@ function pickMessage() {
   return _queue.pop();
 }
 
-function makeDroplets() {
-  return Array.from({ length: 32 }, (_, i) => {
-    const angle = (i / 32) * 360 + RNG(-8, 8);
-    const dist  = RNG(80, 260);
-    const rad   = (angle * Math.PI) / 180;
-    return {
-      id:    i,
-      tx:    Math.cos(rad) * dist,
-      ty:    Math.sin(rad) * dist,
-      w:     RNG(10, 55),
-      h:     RNG(8,  45),
-      delay: RNG(0, 0.06).toFixed(3),
-      dur:   RNG(0.5, 0.85).toFixed(3),
-    };
-  });
-}
-
-function makeArms() {
-  // Elongated spikes shooting from centre outward
-  return Array.from({ length: 10 }, (_, i) => {
-    const angle = (i / 10) * 360 + RNG(-12, 12);
-    return {
-      id:     i,
-      angle,
-      width:  RNG(20, 45),
-      length: RNG(90, 200),
-      delay:  RNG(0, 0.04).toFixed(3),
-    };
-  });
-}
-
 export default function GravyFail({ onReveal, onRetry }) {
-  const droplets = useMemo(makeDroplets, []);
-  const arms     = useMemo(makeArms,     []);
-  const msg      = useMemo(() => pickMessage(), []);
+  const msg = useMemo(() => pickMessage(), []);
 
   return (
     <div className="gravy-fail">
+      {/* Retro top-down wipe */}
+      <div className="poo-wipe" />
 
-      {/* Arms radiating outward from centre */}
-      {arms.map(a => (
-        <div
-          key={a.id}
-          className="poo-arm"
-          style={{
-            "--rot":    `${a.angle}deg`,
-            width:      a.width,
-            height:     a.length,
-            marginLeft: -a.width / 2,
-            marginTop:  -a.length,   // bottom of arm sits at top:50% = screen centre
-            animationDelay: `${a.delay}s`,
-          }}
-        />
-      ))}
-
-      {/* Droplets flying in all directions */}
-      {droplets.map(d => (
-        <div
-          key={d.id}
-          className="poo-splatter"
-          style={{
-            "--tx":    `${d.tx}px`,
-            "--ty":    `${d.ty}px`,
-            width:     d.w,
-            height:    d.h,
-            animationDelay:    `${d.delay}s`,
-            animationDuration: `${d.dur}s`,
-          }}
-        />
-      ))}
-
-      {/* Central mass swallows the screen */}
-      <div className="poo-blob" />
-
-      {/* Poo + sassy message + next button */}
+      {/* Poo + sassy message + buttons */}
       <div className="gravy-fail-msg">
         <span className="poo-emoji">💩</span>
         <span className="poo-msg-text">{msg}</span>

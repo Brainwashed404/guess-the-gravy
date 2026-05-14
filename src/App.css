@@ -702,58 +702,23 @@
   border-radius: inherit;
 }
 
-/* Arms shoot outward from centre (pivot at bottom = screen centre) */
-.poo-arm {
+/* Retro top-down wipe — brown floods in from the top like a classic game transition */
+.poo-wipe {
   position: absolute;
-  top: 50%;
+  inset: 0;
   background: #3B1800;
-  border-radius: 50% 50% 35% 35%;
-  transform-origin: 50% 100%;
-  transform: rotate(var(--rot)) scaleY(0);
-  animation: arm-shoot 0.7s ease-out forwards;
+  transform-origin: top center;
+  transform: scaleY(0);
+  animation: gravy-wipe 0.38s cubic-bezier(0.4, 0, 0.15, 1) forwards;
   pointer-events: none;
 }
-@keyframes arm-shoot {
-  0%   { transform: rotate(var(--rot)) scaleY(0); }
-  75%  { transform: rotate(var(--rot)) scaleY(1.1); }
-  100% { transform: rotate(var(--rot)) scaleY(1); }
+@keyframes gravy-wipe {
+  0%   { transform: scaleY(0); }
+  78%  { transform: scaleY(1.03); }  /* slight slop overshoot */
+  100% { transform: scaleY(1); }
 }
 
-/* Droplets fly outward from centre */
-.poo-splatter {
-  position: absolute;
-  top: 50%; left: 50%;
-  background: #4A1E00;
-  border-radius: 44% 56% 38% 62% / 55% 42% 58% 45%;
-  transform: translate(-50%, -50%) scale(0);
-  animation: poo-fly ease-out forwards;
-  pointer-events: none;
-}
-@keyframes poo-fly {
-  0%   { transform: translate(-50%, -50%) scale(0); }
-  70%  { transform: translate(calc(-50% + var(--tx)), calc(-50% + var(--ty))) scale(1.2); }
-  100% { transform: translate(calc(-50% + var(--tx)), calc(-50% + var(--ty))) scale(1); }
-}
-
-/* Central mass expands to fill the whole screen */
-.poo-blob {
-  position: absolute;
-  top: 50%; left: 50%;
-  width: 300vmax; height: 300vmax;
-  border-radius: 44% 56% 52% 48% / 46% 54% 46% 54%;
-  background: radial-gradient(circle at 38% 42%, #5C2800 0%, #230900 100%);
-  transform: translate(-50%, -50%) scale(0);
-  animation: poo-blob-expand 0.8s cubic-bezier(0.2, 0.6, 0.35, 1) forwards;
-  animation-delay: 0.25s;
-  pointer-events: none;
-}
-@keyframes poo-blob-expand {
-  0%   { transform: translate(-50%, -50%) scale(0); }
-  65%  { transform: translate(-50%, -50%) scale(1.04); }
-  100% { transform: translate(-50%, -50%) scale(1); }
-}
-
-/* 💩 + sassy message + next button */
+/* 💩 + sassy message + buttons — appear after the wipe lands */
 .gravy-fail-msg {
   position: absolute;
   inset: 0;
@@ -763,12 +728,12 @@
   justify-content: center;
   gap: 16px;
   opacity: 0;
-  animation: poo-msg-pop 0.5s cubic-bezier(0.34, 1.4, 0.64, 1) forwards;
-  animation-delay: 0.7s;
+  animation: poo-msg-pop 0.35s cubic-bezier(0.34, 1.4, 0.64, 1) forwards;
+  animation-delay: 0.32s;
 }
 @keyframes poo-msg-pop {
-  0%   { opacity: 0; transform: scale(0.3) rotate(-15deg); }
-  100% { opacity: 1; transform: scale(1)   rotate(0deg); }
+  0%   { opacity: 0; transform: scale(0.75); }
+  100% { opacity: 1; transform: scale(1); }
 }
 .poo-emoji {
   font-size: 90px;
