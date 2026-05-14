@@ -80,7 +80,7 @@ function makeArms() {
   });
 }
 
-export default function GravyFail({ onNext, onRetry }) {
+export default function GravyFail({ onReveal, onRetry }) {
   const droplets = useMemo(makeDroplets, []);
   const arms     = useMemo(makeArms,     []);
   const msg      = useMemo(() => pickMessage(), []);
@@ -129,7 +129,7 @@ export default function GravyFail({ onNext, onRetry }) {
         <span className="poo-msg-text">{msg}</span>
         <div className="poo-btns">
           <button className="poo-next-btn poo-retry-btn" onClick={onRetry}>Try Again</button>
-          <button className="poo-next-btn" onClick={onNext}>Next →</button>
+          <button className="poo-next-btn" onClick={onReveal}>Reveal Answer</button>
         </div>
       </div>
     </div>

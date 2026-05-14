@@ -238,6 +238,13 @@ export default function JigsawGame({ worldId, onComplete, onBack, brandOverride 
     startTimer();
   };
 
+  const handleReveal = () => {
+    // Dismiss poo screen, show full image + answer, then auto-advance
+    setGravyFail(false);
+    setRevealedCount(TOTAL); // clear all tiles so the logo is visible
+    setTimeout(() => handleNext(), 2000);
+  };
+
   // Single energy bar = timer. Starts full (cover 0%), drains to dark (cover 100%)
   const timerCover = (revealedCount / TOTAL) * 100;
 
@@ -253,7 +260,7 @@ export default function JigsawGame({ worldId, onComplete, onBack, brandOverride 
           onStart={() => { setIntroSeen(true); tick(); startTimer(); }}
         />
       )}
-      {gravyFail && <GravyFail onNext={handleNext} onRetry={handleRetry} />}
+      {gravyFail && <GravyFail onReveal={handleReveal} onRetry={handleRetry} />}
       <div className="game-header">
         <button className="back-btn" onClick={() => { stopTimer(); onBack(); }}>QUIT</button>
         {roundDone && !gravyFail && resultMsg && (

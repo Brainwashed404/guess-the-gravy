@@ -163,6 +163,12 @@ export default function Game({ worldId, existingProgress, onComplete, onBack, br
     setGravyFail(false);
   };
 
+  const handleReveal = () => {
+    // Dismiss poo screen — revealed prop becomes true, showing the answer
+    setGravyFail(false);
+    setTimeout(() => handleNext(), 2000);
+  };
+
   const handleSkip = () => {
     if (roundDone) return;
     soundSkip();
@@ -210,7 +216,7 @@ export default function Game({ worldId, existingProgress, onComplete, onBack, br
           onStart={() => setIntroSeen(true)}
         />
       )}
-      {gravyFail && <GravyFail onNext={handleNext} onRetry={handleRetry} />}
+      {gravyFail && <GravyFail onReveal={handleReveal} onRetry={handleRetry} />}
       <div className="game-header">
         <button className="back-btn" onClick={onBack}>QUIT</button>
         {roundDone && !gravyFail && resultMsg && (
