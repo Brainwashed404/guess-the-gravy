@@ -128,8 +128,8 @@ export default function GravyFail({ onReveal, onRetry }) {
         <span className="poo-emoji">💩</span>
         <span className="poo-msg-text">{msg}</span>
         <div className="poo-btns">
+          <button className="poo-next-btn" onClick={onReveal}>Show Answer</button>
           <button className="poo-next-btn poo-retry-btn" onClick={onRetry}>Try Again</button>
-          <button className="poo-next-btn" onClick={onReveal}>Reveal Answer</button>
         </div>
       </div>
     </div>

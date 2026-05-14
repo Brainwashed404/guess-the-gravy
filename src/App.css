@@ -754,8 +754,10 @@
 }
 .poo-btns {
   display: flex;
+  flex-direction: column;
   gap: 12px;
   margin-top: 8px;
+  width: 100%;
 }
 .poo-next-btn {
   font-family: 'Bangers', system-ui, sans-serif;
@@ -768,6 +770,7 @@
   padding: 16px 32px;
   cursor: pointer;
   transition: transform 0.1s;
+  width: 100%;
 }
 .poo-retry-btn {
   background: #f5c842;
