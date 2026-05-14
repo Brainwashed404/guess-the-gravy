@@ -1210,10 +1210,34 @@
   /* Hide the in-body action-msg — it's now in the header */
   .action-msg { display: none; }
 
+  /* game-img-row takes the vertical space the old image-wrap occupied in the
+     screen column; its children (image + life pips) size within that space */
+  .game-img-row {
+    flex: 1;
+    min-height: 0;
+    padding: 8px 20px 4px;
+    align-items: center;
+  }
+
+  /* Easy: image-wrap fills the row height, image scales inside it */
+  .screen.game .image-wrap {
+    height: 100%;
+    flex: 1;
+    min-height: 0;
+    padding: 0;
+    margin: 0;
+  }
+
+  /* Jigsaw: game-img-row centres the fixed square, doesn't stretch it */
+  .screen.jigsaw-game .game-img-row {
+    flex: 0 0 auto;
+    padding: 20px 20px 8px;
+  }
+
   /* Jigsaw: keep the image area a proper square on wide viewports */
   .jigsaw-img-wrap {
     padding: 0;
-    margin: 24px auto 16px;
+    margin: 0;
     width:  min(52vh, 50vw);
     height: min(52vh, 50vw);
     flex: 0 0 auto;
