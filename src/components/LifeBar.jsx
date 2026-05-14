@@ -1,13 +1,16 @@
-// 3 lives displayed as coloured squares that break away one by one.
-// wrongCount 0 → all lit; 1 → first dark; 2 → two dark; 3 → GravyFail.
+// 3 lives shown as squares. Green = remaining, red = lost.
+// wrongCount 0 → ■■■ green; 1 → ■■ green + 1 red; 2 → ■ green + 2 red; 3 → GravyFail
 const MAX = 3;
 
 export default function LifeBar({ wrongCount }) {
   return (
     <div className="life-bar">
       {Array.from({ length: MAX }, (_, i) => {
-        const lost = i < wrongCount;
-        const danger = !lost && wrongCount === MAX - 1 && i === MAX - 1;
+        // Fill from the right — last pip goes red first feels more natural
+        const lostIdx = MAX - 1 - i; // 2, 1, 0
+        const lost = lostIdx < wrongCount;
+        // Last green pip pulses when danger is imminent (2 already gone)
+        const danger = !lost && wrongCount === MAX - 1;
         return (
           <span
             key={i}

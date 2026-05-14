@@ -271,7 +271,7 @@ export default function JigsawGame({ worldId, onComplete, onBack, brandOverride 
           <span className={`header-result-msg ${correct ? "result-correct" : "result-skipped"}`}>
             {resultMsg}
           </span>
-        ) : wrongCount > 0 && !roundDone ? (
+        ) : !roundDone ? (
           <LifeBar wrongCount={wrongCount} />
         ) : null}
         {/* Mobile portrait: Skip / Next in header */}

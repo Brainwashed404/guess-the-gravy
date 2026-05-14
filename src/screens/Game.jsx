@@ -224,14 +224,12 @@ export default function Game({ worldId, existingProgress, onComplete, onBack, br
       {gravyFail && <GravyFail onReveal={handleReveal} onRetry={handleRetry} />}
       <div className="game-header">
         <button className="back-btn" onClick={onBack}>QUIT</button>
-        {/* Centre slot: result → hint text → wrong count */}
+        {/* Centre slot: result when done, life bar while playing */}
         {roundDone && !gravyFail && resultMsg ? (
           <span className={`header-result-msg ${skipped ? "result-skipped" : "result-correct"}`}>
             {resultMsg}
           </span>
-        ) : !roundDone && hintsUsed > 0 && getHint(brand, hintsUsed) ? (
-          <span className="header-hint-text">{getHint(brand, hintsUsed)}</span>
-        ) : wrongCount > 0 && !roundDone ? (
+        ) : !roundDone ? (
           <LifeBar wrongCount={wrongCount} />
         ) : null}
         {/* Mobile portrait: action buttons sit in the header row */}
@@ -259,6 +257,11 @@ export default function Game({ worldId, existingProgress, onComplete, onBack, br
           />
         </div>
       </div>
+
+      {/* Hint text — own slot below energy bar so it never clashes with life bar */}
+      {!roundDone && hintsUsed > 0 && getHint(brand, hintsUsed) && (
+        <div className="hint-banner">{getHint(brand, hintsUsed)}</div>
+      )}
 
       <div className={`image-wrap ${roundDone && !skipped ? "wiggle" : ""}`}>
         <img

@@ -171,6 +171,18 @@
 .back-btn:active { background: var(--border); transform: scale(0.95); }
 .game-counter { font-size: 13px; font-weight: 700; color: var(--muted); }
 
+/* Hint text — sits between energy bar and image, never clashes with life bar */
+.hint-banner {
+  flex-shrink: 0;
+  text-align: center;
+  font-family: 'Bangers', system-ui, sans-serif;
+  font-size: clamp(16px, 4.5vw, 22px);
+  letter-spacing: 0.07em;
+  color: #f5c842;
+  padding: 2px 16px 4px;
+  animation: header-msg-in 0.2s cubic-bezier(0.34, 1.4, 0.64, 1) both;
+}
+
 /* ── Fighter energy bar ── */
 .energy-wrap {
   flex-shrink: 0;
@@ -275,23 +287,21 @@
   width:  22px;
   height: 22px;
   border-radius: 5px;
-  background: #22c55e;          /* green = alive */
+  background: #22c55e;          /* green = life remaining */
   border: 2px solid #111;
   transition: background 0.15s, transform 0.15s;
 }
 
-/* Lost pip — dark grey, shrinks slightly and "cracks" in */
+/* Lost pip — turns red and cracks in */
 .life-pip.life-lost {
-  background: #333;
-  border-color: #555;
-  transform: scale(0.8);
-  animation: pip-crack 0.3s cubic-bezier(0.36, 0.07, 0.19, 0.97) both;
+  background: #ef4444;
+  border-color: #b91c1c;
+  animation: pip-crack 0.35s cubic-bezier(0.36, 0.07, 0.19, 0.97) both;
 }
 
-/* Last pip alive when 2 are already gone — pulse red to signal danger */
+/* Last green pip when 2 are gone — pulses to scream danger */
 .life-pip.life-danger {
-  background: #ef4444;
-  animation: pip-danger 0.7s ease-in-out infinite alternate;
+  animation: pip-danger 0.65s ease-in-out infinite alternate;
 }
 
 @keyframes pip-crack {
